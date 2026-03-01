@@ -38,9 +38,18 @@ export default function Home() {
 
   const handleEmailSubmit = async () => {
     if (!emailForm.email || !emailForm.name || !emailForm.message) return;
-    // Future: connect to n8n webhook
-    // const url = process.env.NEXT_PUBLIC_LEAD_CAPTURE_URL;
-    // await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...emailForm, source: "website_form", priority: emailForm.urgency === "urgent" ? "high" : "normal" }) });
+    await fetch("https://itsloashh.app.n8n.cloud/webhook/lead-capture", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: emailForm.name,
+        email: emailForm.email,
+        company: emailForm.company,
+        message: emailForm.message,
+        source: "website_form",
+        priority: emailForm.urgency === "urgent" ? "high" : "normal",
+      }),
+    });
     setEmailSent(true);
     setTimeout(() => {
       setEmailSent(false);
