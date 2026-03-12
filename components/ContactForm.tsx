@@ -1,110 +1,28 @@
 "use client";
-
 import { useState, FormEvent } from "react";
+const ic = "w-full bg-transparent border border-line rounded-xl px-4 py-3 text-sm text-txt placeholder:text-txt-muted/40 outline-none focus:border-line-gold transition-colors";
 
 export default function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    const form = e.currentTarget;
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
-      budget: (form.elements.namedItem("budget") as HTMLSelectElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-      submitted: new Date().toISOString(),
-    };
-
-    try {
-      const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-      }
-    } catch (err) {
-      console.error("Webhook error:", err);
-    }
-
-    setSubmitted(true);
-    setLoading(false);
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault(); setLoading(true);
+    const f = e.currentTarget;
+    const data = { name: (f.elements.namedItem("name") as HTMLInputElement).value, email: (f.elements.namedItem("email") as HTMLInputElement).value, service: (f.elements.namedItem("service") as HTMLSelectElement).value, budget: (f.elements.namedItem("budget") as HTMLSelectElement).value, message: (f.elements.namedItem("message") as HTMLTextAreaElement).value, submitted: new Date().toISOString() };
+    try { const url = process.env.NEXT_PUBLIC_WEBHOOK_URL; if (url) await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) }); } catch (err) { console.error(err); }
+    setDone(true); setLoading(false);
   }
-
-  if (submitted) {
-    return (
-      <div className="text-center py-12">
-        <p className="font-serif text-2xl text-green dark:text-green-bright">Inquiry received.</p>
-        <p className="text-[0.92rem] text-txt-muted dark:text-txt-dark-muted mt-2">We&apos;ll be in touch within 24 hours.</p>
-      </div>
-    );
-  }
-
+  if (done) return <div className="text-center py-12"><p className="font-serif text-2xl gold-text">Inquiry received.</p><p className="text-sm text-txt-muted mt-2">We&apos;ll be in touch within 24 hours.</p></div>;
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label className="block text-[0.7rem] font-medium uppercase tracking-[0.15em] text-txt-muted dark:text-txt-dark-muted mb-2">Name</label>
-          <input
-            type="text" name="name" required placeholder="Your full name"
-            className="w-full bg-transparent border border-border dark:border-border-dark px-4 py-3 text-[0.92rem] text-txt dark:text-txt-dark placeholder:text-txt-muted/50 dark:placeholder:text-txt-dark-muted/50 outline-none focus:border-green dark:focus:border-green-bright transition-colors"
-          />
-        </div>
-        <div>
-          <label className="block text-[0.7rem] font-medium uppercase tracking-[0.15em] text-txt-muted dark:text-txt-dark-muted mb-2">Email</label>
-          <input
-            type="email" name="email" required placeholder="you@company.com"
-            className="w-full bg-transparent border border-border dark:border-border-dark px-4 py-3 text-[0.92rem] text-txt dark:text-txt-dark placeholder:text-txt-muted/50 dark:placeholder:text-txt-dark-muted/50 outline-none focus:border-green dark:focus:border-green-bright transition-colors"
-          />
-        </div>
+    <form onSubmit={submit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><label className="block text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-txt-muted mb-2">Name</label><input type="text" name="name" required placeholder="Your full name" className={ic} /></div>
+        <div><label className="block text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-txt-muted mb-2">Email</label><input type="email" name="email" required placeholder="you@company.com" className={ic} /></div>
       </div>
-      <div>
-        <label className="block text-[0.7rem] font-medium uppercase tracking-[0.15em] text-txt-muted dark:text-txt-dark-muted mb-2">Project Type</label>
-        <select
-          name="service"
-          className="w-full bg-transparent border border-border dark:border-border-dark px-4 py-3 text-[0.92rem] text-txt dark:text-txt-dark outline-none focus:border-green dark:focus:border-green-bright transition-colors appearance-none"
-        >
-          <option value="">Select a service</option>
-          <option value="website">Conversion-Focused Website</option>
-          <option value="platform">Scalable Platform Build</option>
-          <option value="automation">Intelligent Automation</option>
-          <option value="audit">Strategic Audit</option>
-          <option value="other">Something Else</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-[0.7rem] font-medium uppercase tracking-[0.15em] text-txt-muted dark:text-txt-dark-muted mb-2">Budget Range</label>
-        <select
-          name="budget"
-          className="w-full bg-transparent border border-border dark:border-border-dark px-4 py-3 text-[0.92rem] text-txt dark:text-txt-dark outline-none focus:border-green dark:focus:border-green-bright transition-colors appearance-none"
-        >
-          <option value="">Select range</option>
-          <option value="2k-5k">$2,000 – $5,000</option>
-          <option value="5k-10k">$5,000 – $10,000</option>
-          <option value="10k-25k">$10,000 – $25,000</option>
-          <option value="25k+">$25,000+</option>
-        </select>
-      </div>
-      <div>
-        <label className="block text-[0.7rem] font-medium uppercase tracking-[0.15em] text-txt-muted dark:text-txt-dark-muted mb-2">Project Details</label>
-        <textarea
-          name="message" rows={4}
-          placeholder="Tell us about your project, current infrastructure, and what you're looking to build..."
-          className="w-full bg-transparent border border-border dark:border-border-dark px-4 py-3 text-[0.92rem] text-txt dark:text-txt-dark placeholder:text-txt-muted/50 dark:placeholder:text-txt-dark-muted/50 outline-none focus:border-green dark:focus:border-green-bright transition-colors resize-none"
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-green dark:bg-green-bright text-white text-[0.78rem] font-medium uppercase tracking-[0.12em] py-4 border-none cursor-pointer hover:opacity-[0.88] transition-opacity disabled:opacity-50"
-      >
-        {loading ? "Sending..." : "Submit Inquiry"}
-      </button>
+      <div><label className="block text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-txt-muted mb-2">Project Type</label><select name="service" className={`${ic} appearance-none`}><option value="">Select a service</option><option value="website">Conversion-Focused Website</option><option value="platform">Scalable Platform Build</option><option value="automation">Intelligent Automation</option><option value="audit">Strategic Audit</option><option value="other">Something Else</option></select></div>
+      <div><label className="block text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-txt-muted mb-2">Budget Range</label><select name="budget" className={`${ic} appearance-none`}><option value="">Select range</option><option value="2k-5k">$2,000 – $5,000</option><option value="5k-10k">$5,000 – $10,000</option><option value="10k-25k">$10,000 – $25,000</option><option value="25k+">$25,000+</option></select></div>
+      <div><label className="block text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-txt-muted mb-2">Project Details</label><textarea name="message" rows={4} placeholder="Tell us about your project..." className={`${ic} resize-none`} /></div>
+      <button type="submit" disabled={loading} className="w-full bg-gold text-bg text-sm font-semibold uppercase tracking-wider py-4 rounded-xl hover:bg-gold-dim transition-colors disabled:opacity-50 cursor-pointer">{loading ? "Sending..." : "Submit Inquiry"}</button>
     </form>
   );
 }

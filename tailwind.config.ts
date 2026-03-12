@@ -1,33 +1,20 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-  ],
-  darkMode: "class",
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        bg: { DEFAULT: "#FFFFFF", warm: "#F7F6F2", dark: "#0E0E0D", "dark-warm": "#161614" },
-        border: { DEFAULT: "#E0DDD6", dark: "#2A2A26" },
-        txt: { DEFAULT: "#141413", mid: "#3D3D38", muted: "#6B6B62", dark: "#E8E6E0", "dark-mid": "#B8B5AC", "dark-muted": "#7A776E" },
-        green: { DEFAULT: "#006039", light: "rgba(0,96,57,0.07)", bright: "#00A86B", "bright-light": "rgba(0,168,107,0.08)" },
-        gold: { DEFAULT: "#A37E2C", light: "rgba(163,126,44,0.08)", bright: "#D4A843" },
-        inv: { bg: "#141413", text: "#F0EDE6", muted: "#9E9D96" },
+        bg: { DEFAULT: "#060911", card: "#0C1019", hover: "#111620", nav: "rgba(6,9,17,0.85)" },
+        line: { DEFAULT: "rgba(255,255,255,0.06)", bright: "rgba(255,255,255,0.1)", gold: "rgba(212,168,67,0.2)" },
+        txt: { DEFAULT: "#E8E6E0", mid: "#9B98A0", muted: "#5C5A64" },
+        gold: { DEFAULT: "#D4A843", bright: "#F0D078", dim: "#A37E2C" },
+        accent: { purple: "#7B61FF", pink: "#FF61D8", teal: "#51FAAA" },
       },
-      fontFamily: {
-        serif: ["Cormorant Garamond", "serif"],
-        sans: ["Libre Franklin", "sans-serif"],
-      },
-      keyframes: {
-        "reveal-up": {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        "reveal-up": "reveal-up 0.7s cubic-bezier(0.22,1,0.36,1) forwards",
+      fontFamily: { sans: ["'Libre Franklin'", "system-ui", "sans-serif"], serif: ["'Cormorant Garamond'", "serif"] },
+      borderRadius: { xl: "16px", "2xl": "20px", "3xl": "24px" },
+      boxShadow: {
+        glow: "0 0 30px rgba(212,168,67,0.15)", "glow-lg": "0 0 60px rgba(212,168,67,0.2)",
+        "glow-card": "0 4px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)",
       },
     },
   },
