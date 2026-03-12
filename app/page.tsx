@@ -153,10 +153,13 @@ export default function Home() {
       <section className="relative py-28 lg:py-40">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-12 lg:gap-20 items-start">
-            <SR><div className="w-full max-w-[340px] aspect-[3/4] glass flex items-end justify-center overflow-hidden gradient-border"><p className="font-serif italic text-sm text-txt-muted p-6 text-center">Your photo here</p></div></SR>
+            <SR><div className="w-full max-w-[340px] aspect-[3/4] glass flex items-center justify-center overflow-hidden gradient-border" style={{background: 'linear-gradient(135deg, #1a1a1a 0%, #0f0f14 100%)'}}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/lp-logo.png" alt="LP monogram" className="w-52 h-52 object-contain" onError={(e) => { (e.target as HTMLImageElement).src = '/lp-logo.svg'; }} />
+            </div></SR>
             <div>
               <SR><span className="pill pill-gold">The Founder</span></SR>
-              <SR delay={1}><h2 className="font-serif text-[clamp(2rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-txt mt-5 mb-6">Lo Paroian.</h2></SR>
+              <SR delay={1}><h2 className="font-serif text-[clamp(2rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-txt mt-5 mb-6">Lagan Paroian.</h2></SR>
               <SR delay={2}>
                 <p className="text-[1.02rem] font-light leading-relaxed text-txt-mid mb-4">Founder, systems architect, and operator building at the intersection of media, commerce, and intelligent automation. I started Loparo because I saw the same problem everywhere — founders with real momentum running on infrastructure that couldn&apos;t keep up.</p>
                 <p className="text-[1.02rem] font-light leading-relaxed text-txt-mid">My background spans live events, brand development, and trading — each demanding the same discipline: build lean, execute fast, and design every system to scale before you need it to.</p>
@@ -170,9 +173,7 @@ export default function Home() {
               </SR>
               <SR delay={4}>
                 <div className="flex gap-4 mt-8">
-                  {[{ l: "The Second Spliff", h: "https://thesecondspliff.com" }, { l: "Loparo.ca", h: "https://loparo.ca" }].map(x => (
-                    <a key={x.l} href={x.h} target="_blank" rel="noopener noreferrer" className="text-[0.7rem] uppercase tracking-wider gold-text pb-0.5 border-b border-gold/30 hover:border-gold transition-colors">{x.l}</a>
-                  ))}
+                  <a href="https://www.thesecondspliff.com" target="_blank" rel="noopener noreferrer" className="text-[0.7rem] uppercase tracking-wider gold-text pb-0.5 border-b border-gold/30 hover:border-gold transition-colors">The Second Spliff</a>
                 </div>
               </SR>
             </div>
@@ -200,22 +201,6 @@ export default function Home() {
             </SR>
             <SR delay={3}><div className="glass p-8 gradient-border"><ContactForm /></div></SR>
           </div>
-        </div>
-      </section>
-
-      {/* ═══ CLOSE CTA ═══ */}
-      <section className="relative py-28 lg:py-36 text-center overflow-hidden">
-        <div className="orb orb-gold w-[600px] h-[600px] left-1/2 -translate-x-1/2 bottom-[-100px]" />
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
-          <SR><span className="pill pill-gold">Let&apos;s Build</span></SR>
-          <SR delay={1}><h2 className="font-serif text-[clamp(2rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-txt max-w-[520px] mx-auto mt-5 mb-4">Ready to stop losing leads?</h2></SR>
-          <SR delay={2}><p className="text-sm font-light text-txt-muted max-w-[460px] mx-auto mb-10">Book a free 15-minute discovery call. I&apos;ll show you exactly how automation can eliminate your busywork and close more deals.</p></SR>
-          <SR delay={3}>
-            <div className="flex gap-3 justify-center flex-wrap">
-              <a href="#contact" className="inline-block bg-gold text-bg text-[0.75rem] font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full hover:bg-gold-dim hover:shadow-glow transition-all">Book a Call →</a>
-              <a href="mailto:loparoian@gmail.com" className="inline-block text-txt-mid text-[0.75rem] font-normal uppercase tracking-wider px-7 py-3.5 border border-line rounded-full hover:border-line-gold hover:text-txt transition-all">Send an Email</a>
-            </div>
-          </SR>
         </div>
       </section>
 

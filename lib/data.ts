@@ -2,6 +2,7 @@ export interface CaseStudy {
   type: string;
   title: string;
   slug: string;
+  url?: string;
   context: string;
   challenge: string;
   strategy: string;
@@ -15,6 +16,7 @@ export const caseStudies: CaseStudy[] = [
     type: "Website",
     title: "The Second Spliff",
     slug: "the-second-spliff",
+    url: "https://www.thesecondspliff.com",
     context:
       "TSS is a Windsor, Ontario lifestyle, live events, and multimedia brand evolving into a professional events company. Needed a digital home that reflected its evolution and drove partnership inquiries.",
     challenge:
@@ -64,24 +66,6 @@ export const caseStudies: CaseStudy[] = [
       { value: "85%", label: "Code Reduction" },
     ],
     tags: ["Streamlit", "Multi-Agent AI", "Discord", "Python"],
-  },
-  {
-    type: "Website",
-    title: "Loparo.ca",
-    slug: "loparo-ca",
-    context:
-      "Needed a homepage communicating premium positioning, technical credibility, and clear conversion path for founder-stage businesses.",
-    challenge:
-      "Competing in a crowded agency space. Needed to immediately convey operator-built credibility and drive audit bookings.",
-    strategy:
-      "Rolex-inspired green and gold palette with Cormorant Garamond editorial typography. Single-page conversion architecture: Hero → Capabilities → Work → Process → Contact.",
-    outcome:
-      "Distinctive brand presence. Clean conversion path from landing to inquiry submission.",
-    metrics: [
-      { value: "7", label: "Conversion Sections" },
-      { value: "<2s", label: "Full Load Time" },
-    ],
-    tags: ["HTML / CSS", "Conversion Design", "Editorial Typography"],
   },
   {
     type: "Application",

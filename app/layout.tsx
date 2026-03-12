@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en"><head>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "ProfessionalService", name: "Loparo", url: "https://loparo.ca", description: "AI workflow automation studio for modern founders.", founder: { "@type": "Person", name: "Lo Paroian" }, areaServed: "Worldwide", serviceType: ["Workflow Automation", "AI Integration", "Lead Generation Systems"], address: { "@type": "PostalAddress", addressLocality: "Windsor", addressRegion: "Ontario", addressCountry: "CA" } }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "ProfessionalService", name: "Loparo", url: "https://loparo.ca", description: "AI workflow automation studio for modern founders.", founder: { "@type": "Person", name: "Lagan Paroian" }, areaServed: "Worldwide", serviceType: ["Workflow Automation", "AI Integration", "Lead Generation Systems"], address: { "@type": "PostalAddress", addressLocality: "Windsor", addressRegion: "Ontario", addressCountry: "CA" } }) }} />
     </head><body>{children}</body></html>
   );
 }

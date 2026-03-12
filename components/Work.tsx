@@ -18,13 +18,18 @@ export default function Work() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {caseStudies.map((cs, i) => (
               <SR key={cs.slug} delay={i < 3 ? 2 : 3}>
-                <button onClick={() => setActive(i)} className="glass w-full text-left p-7 cursor-pointer group">
+                <div className="glass p-7 group h-full flex flex-col">
                   <span className="pill pill-gold mb-4">{cs.type}</span>
                   <h3 className="font-serif text-xl text-txt mb-2 mt-2 group-hover:text-gold transition-colors">{cs.title}</h3>
                   <p className="text-[0.82rem] font-light text-txt-muted leading-[1.7] mb-4 line-clamp-2">{cs.context}</p>
-                  <div className="flex gap-1.5 flex-wrap mb-3">{cs.tags.slice(0, 3).map(t => <span key={t} className="pill">{t}</span>)}</div>
-                  <span className="text-[0.72rem] text-gold tracking-wide group-hover:tracking-widest transition-all">Read case study →</span>
-                </button>
+                  <div className="flex gap-1.5 flex-wrap mb-4">{cs.tags.map(t => <span key={t} className="pill">{t}</span>)}</div>
+                  <div className="mt-auto flex items-center gap-4">
+                    <button onClick={() => setActive(i)} className="text-[0.72rem] text-gold tracking-wide hover:tracking-widest transition-all cursor-pointer bg-transparent border-none p-0">Read case study →</button>
+                    {cs.url && (
+                      <a href={cs.url} target="_blank" rel="noopener noreferrer" className="text-[0.72rem] text-txt-muted hover:text-gold tracking-wide transition-all">Visit site ↗</a>
+                    )}
+                  </div>
+                </div>
               </SR>
             ))}
           </div>

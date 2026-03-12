@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9A84C"/>
+      <stop offset="25%" style="stop-color:#F0D078"/>
+      <stop offset="50%" style="stop-color:#D4A843"/>
+      <stop offset="75%" style="stop-color:#F0D078"/>
+      <stop offset="100%" style="stop-color:#A37E2C"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#1a1a1a" rx="0"/>
+  <text x="155" y="310" font-family="'Cormorant Garamond', 'Georgia', serif" font-size="280" font-weight="500" fill="url(#gold)" letter-spacing="-25">L</text>
+  <text x="205" y="310" font-family="'Cormorant Garamond', 'Georgia', serif" font-size="280" font-weight="500" fill="url(#gold)" letter-spacing="-25">P</text>
+</svg>
