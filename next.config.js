@@ -1,2 +1,2 @@
 /** @type {import('next').NextConfig} */
-module.exports = { transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'] };
+module.exports = {};

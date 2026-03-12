@@ -1,15 +1,11 @@
 "use client";
 
-import nextDynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SR from "@/components/SR";
 import Work from "@/components/Work";
 import ContactForm from "@/components/ContactForm";
-
-const HeroScene = nextDynamic(() => import("@/components/HeroScene"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0" />,
-});
+import HeroPaths from "@/components/HeroPaths";
+import { motion } from "framer-motion";
 
 export default function PageClient() {
   return (
@@ -18,38 +14,101 @@ export default function PageClient() {
 
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <HeroScene />
+        <HeroPaths />
         <div className="orb orb-gold w-[500px] h-[500px] top-[-100px] left-[-100px]" />
         <div className="orb orb-purple w-[400px] h-[400px] bottom-20 right-[-80px]" />
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12 pt-32 pb-16 w-full">
           <div className="max-w-[650px]">
-            <div className="ha flex items-center gap-2 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+              className="flex items-center gap-2 mb-8"
+            >
               <span className="w-2 h-2 rounded-full bg-gold shadow-glow animate-pulse" />
               <span className="pill pill-gold">Available for new projects</span>
-            </div>
+            </motion.div>
 
-            <h1 className="ha ha-1 text-[clamp(2.6rem,6.5vw,4.8rem)] font-serif font-light leading-[1.02] tracking-tight mb-7">
-              Automate your business with <span className="gold-text">Agentic Powered</span> Workflows
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5 }}
+              className="text-[clamp(2.6rem,6.5vw,4.8rem)] font-serif font-light leading-[1.02] tracking-tight mb-7"
+            >
+              {["Automate", "your", "business", "with"].map((word, wi) => (
+                <span key={wi} className="inline-block mr-[0.3em] last:mr-0">
+                  {word.split("").map((letter, li) => (
+                    <motion.span
+                      key={`${wi}-${li}`}
+                      initial={{ y: 80, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: wi * 0.1 + li * 0.03, type: "spring", stiffness: 150, damping: 25 }}
+                      className="inline-block text-txt"
+                    >{letter}</motion.span>
+                  ))}
+                </span>
+              ))}
+              <br className="hidden sm:block" />
+              {["Agentic", "Powered"].map((word, wi) => (
+                <span key={wi} className="inline-block mr-[0.3em] last:mr-0">
+                  {word.split("").map((letter, li) => (
+                    <motion.span
+                      key={`g-${wi}-${li}`}
+                      initial={{ y: 80, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.5 + wi * 0.1 + li * 0.03, type: "spring", stiffness: 150, damping: 25 }}
+                      className="inline-block gold-text"
+                    >{letter}</motion.span>
+                  ))}
+                </span>
+              ))}
+              {" "}
+              <span className="inline-block">
+                {"Workflows".split("").map((letter, li) => (
+                  <motion.span
+                    key={`w-${li}`}
+                    initial={{ y: 80, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.75 + li * 0.03, type: "spring", stiffness: 150, damping: 25 }}
+                    className="inline-block text-txt"
+                  >{letter}</motion.span>
+                ))}
+              </span>
+            </motion.h1>
 
-            <p className="ha ha-2 text-[1.05rem] font-light leading-relaxed text-txt-mid max-w-[520px] mb-10">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="text-[1.05rem] font-light leading-relaxed text-txt-mid max-w-[520px] mb-10"
+            >
               Intelligent automation systems that can help capture leads, follow up instantly with AI, sync your CRM, and keep your team in the loop — so you can focus on closing deals, not chasing them.
-            </p>
+            </motion.p>
 
-            <div className="ha ha-3 flex gap-3 items-center flex-wrap mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="flex gap-3 items-center flex-wrap mb-16"
+            >
               <a href="#contact" className="inline-block bg-gold text-bg text-[0.75rem] font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full hover:bg-gold-dim hover:shadow-glow transition-all">Start a Project</a>
               <a href="#work" className="inline-block text-txt-mid text-[0.75rem] font-normal uppercase tracking-wider px-7 py-3.5 border border-line rounded-full hover:border-line-gold hover:text-txt transition-all">View Case Studies</a>
-            </div>
+            </motion.div>
 
-            <div className="ha ha-4 grid grid-cols-3 gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              className="grid grid-cols-3 gap-3"
+            >
               {[{ v: "~5s", l: "Lead response time" }, { v: "100%", l: "Automated follow-up" }, { v: "24/7", l: "Always running" }].map(s => (
                 <div key={s.l} className="glass p-4 text-center">
                   <p className="font-serif text-2xl gold-text">{s.v}</p>
                   <p className="text-[0.6rem] uppercase tracking-[0.1em] text-txt-muted mt-1">{s.l}</p>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
