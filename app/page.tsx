@@ -1,10 +1,13 @@
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SR from "@/components/SR";
 import Work from "@/components/Work";
 import ContactForm from "@/components/ContactForm";
 
-const HeroScene = dynamic(() => import("@/components/HeroScene"), { ssr: false });
+// Prevent static generation timeout from Three.js
+export const dynamic = "force-dynamic";
+
+const HeroScene = nextDynamic(() => import("@/components/HeroScene"), { ssr: false, loading: () => <div className="absolute inset-0 bg-bg" /> });
 
 export default function Home() {
   return (
