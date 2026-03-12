@@ -52,7 +52,11 @@ body { background: #060911; color: #E8E6E0; font-family: 'Libre Franklin', syste
 .mob-menu { position:fixed;inset:0;z-index:150;background:rgba(6,9,17,0.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity .3s; }
 .mob-menu.open { opacity:1; pointer-events:auto; }
 
-/* ── Modal ── */
+/* ── Form selects ── */
+select { background-color: #0C1019 !important; color: #E8E6E0; }
+select option { background-color: #0C1019; color: #E8E6E0; padding: 8px; }
+select option:checked { background-color: #D4A843; color: #060911; }
+select option:hover { background-color: #111620; }
 .modal-bg { position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:1.5rem; }
 .modal-bg.open { opacity:1; pointer-events:auto; }
 

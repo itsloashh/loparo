@@ -64,21 +64,24 @@ export default function PageClient() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { icon: "⚡", ai: true, title: "Lead Capture & AI Follow-up", desc: "Every lead gets a unique, AI-written email within seconds. CRM updates automatically. Your team gets notified instantly.", tags: ["n8n", "Claude AI", "Gmail", "Slack"] },
-              { icon: "🔄", ai: false, title: "CRM Sync & Data Pipeline", desc: "Connect forms, calendars, and lead sources to your CRM. Automatic contact creation, deal tracking, and zero manual data entry.", tags: ["HubSpot", "Sheets", "Pipedrive"] },
-              { icon: "🔔", ai: false, title: "Smart Notifications", desc: "Real-time Slack alerts with priority routing. Hot leads go to the right person. Nothing gets missed, even at 3am.", tags: ["Slack", "Email", "Webhooks"] },
-              { icon: "🧠", ai: true, title: "Custom AI Workflows", desc: "Content generation, lead scoring, data enrichment, and intelligent routing — your business logic, amplified by AI.", tags: ["Claude", "GPT", "Custom Logic"] },
+              { icon: "⚡", ai: true, title: "Lead Capture & AI Follow-up", desc: "Every lead gets a unique, AI-written email within seconds. CRM updates automatically. Your team gets notified instantly.", detail: "The system monitors your intake forms, website, and ad traffic. When a lead comes in, Claude AI writes a personalized follow-up email based on the lead's context, your CRM logs the contact automatically, and your team gets a prioritized Slack notification — all within approximately 5 seconds.", tags: ["n8n", "Claude AI", "Gmail", "Slack"] },
+              { icon: "🔄", ai: false, title: "CRM Sync & Data Pipeline", desc: "Connect forms, calendars, and lead sources to your CRM. Automatic contact creation, deal tracking, and zero manual data entry.", detail: "Every touchpoint — form submissions, calendar bookings, email replies — syncs directly into your CRM. Contacts are created, deals are updated, and pipeline stages move automatically. No copy-pasting between tabs ever again.", tags: ["HubSpot", "Sheets", "Pipedrive"] },
+              { icon: "🔔", ai: false, title: "Smart Notifications", desc: "Real-time Slack alerts with priority routing. Hot leads go to the right person. Nothing gets missed, even at 3am.", detail: "Notifications are routed based on lead score, deal size, or custom rules you define. High-value leads trigger instant alerts to the right team member. Low-priority updates batch into daily digests. Every notification includes full context so your team can act immediately.", tags: ["Slack", "Email", "Webhooks"] },
+              { icon: "🧠", ai: true, title: "Custom AI Workflows", desc: "Content generation, lead scoring, data enrichment, and intelligent routing — your business logic, amplified by AI.", detail: "We build AI-powered workflows tailored to your exact business logic. Whether it's scoring leads based on behavior patterns, enriching contact data from public sources, generating personalized content at scale, or routing decisions through intelligent branching — the AI works within your rules.", tags: ["Claude", "GPT", "Custom Logic"] },
             ].map((item, i) => (
               <SR key={item.title} delay={i < 2 ? 2 : 3}>
-                <div className="glass p-8 group">
+                <div className="glass p-8 group cursor-pointer" onClick={() => { const el = document.getElementById(`svc-${i}`); if (el) el.classList.toggle('hidden'); }}>
                   <div className="flex items-center gap-3 mb-5">
                     <span className="text-2xl">{item.icon}</span>
                     {item.ai && <span className="pill pill-gold">AI-Powered</span>}
                   </div>
                   <h3 className="font-serif text-[1.4rem] text-txt mb-3 group-hover:text-gold transition-colors">{item.title}</h3>
                   <p className="text-[0.85rem] font-light text-txt-muted leading-[1.75] mb-5">{item.desc}</p>
+                  <div id={`svc-${i}`} className="hidden mb-5 pt-4 border-t border-line">
+                    <p className="text-[0.85rem] font-light text-txt-mid leading-[1.75]">{item.detail}</p>
+                  </div>
                   <div className="flex gap-1.5 flex-wrap">{item.tags.map(t => <span key={t} className="pill">{t}</span>)}</div>
-                  <p className="text-[0.72rem] text-gold mt-5 tracking-wide group-hover:tracking-widest transition-all cursor-pointer">Learn more →</p>
+                  <p className="text-[0.72rem] text-gold mt-5 tracking-wide group-hover:tracking-widest transition-all">Learn more →</p>
                 </div>
               </SR>
             ))}
@@ -160,11 +163,11 @@ export default function PageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-12 lg:gap-20 items-start">
             <SR><div className="w-full max-w-[340px] aspect-[3/4] glass flex items-center justify-center overflow-hidden gradient-border" style={{background: 'linear-gradient(135deg, #1a1a1a 0%, #0f0f14 100%)'}}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/lp-logo.png" alt="LP monogram" className="w-52 h-52 object-contain" onError={(e) => { (e.target as HTMLImageElement).src = '/lp-logo.svg'; }} />
+              <img src="/lp-logo.svg" alt="LP" className="w-52 h-52 object-contain" />
             </div></SR>
             <div>
               <SR><span className="pill pill-gold">The Founder</span></SR>
-              <SR delay={1}><h2 className="font-serif text-[clamp(2rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-txt mt-5 mb-6">Lagan Paroian.</h2></SR>
+              <SR delay={1}><h2 className="font-serif text-[clamp(2rem,4.5vw,3.2rem)] font-normal leading-[1.1] text-txt mt-5 mb-6">Logan Paroian.</h2></SR>
               <SR delay={2}>
                 <p className="text-[1.02rem] font-light leading-relaxed text-txt-mid mb-4">Founder, systems architect, and operator building at the intersection of media, commerce, and intelligent automation. I started Loparo because I saw the same problem everywhere — founders with real momentum running on infrastructure that couldn&apos;t keep up.</p>
                 <p className="text-[1.02rem] font-light leading-relaxed text-txt-mid">My background spans live events, brand development, and trading — each demanding the same discipline: build lean, execute fast, and design every system to scale before you need it to.</p>

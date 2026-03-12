@@ -1,6 +1,6 @@
 "use client";
 import { useState, FormEvent } from "react";
-const ic = "w-full bg-transparent border border-line rounded-xl px-4 py-3 text-sm text-txt placeholder:text-txt-muted/40 outline-none focus:border-line-gold transition-colors";
+const ic = "w-full bg-[#0C1019] border border-line rounded-xl px-4 py-3 text-sm text-txt placeholder:text-txt-muted/40 outline-none focus:border-line-gold transition-colors";
 
 export default function ContactForm() {
   const [done, setDone] = useState(false);
