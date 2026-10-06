@@ -32,10 +32,8 @@ export const artist: ArtistProfile = {
     "PLACEHOLDER — what you love to draw most, and the kind of client you do your best work with.",
   ],
   bioIsPlaceholder: true,
-  socials: [
-    { label: "Instagram", href: "https://instagram.com/loash", handle: "@loash" },
-    { label: "TikTok", href: "https://www.tiktok.com/@loash", handle: "@loash" },
-  ],
+  // Add Instagram (and others) from Admin → Profile → Socials
+  socials: [],
   contactEmail: null,
   faq: [
     { q: "Do you take deposits?", a: "PLACEHOLDER — how deposits work, how much, and whether they're refundable." },

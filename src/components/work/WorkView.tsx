@@ -106,7 +106,7 @@ export function WorkView({ initialSlug }: { initialSlug?: string }) {
                   role="radio"
                   aria-checked={mode === m}
                   onClick={() => setMode(m)}
-                  className={cx("px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors", mode === m ? "bg-white/[0.07] text-bone" : "text-ash hover:text-bone")}
+                  className={cx("px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors", mode === m ? "bg-white/[0.07] text-bone" : "text-ash hover:text-bone")}
                 >
                   {m}
                 </button>
@@ -127,7 +127,7 @@ export function WorkView({ initialSlug }: { initialSlug?: string }) {
                   role="radio"
                   aria-checked={active}
                   onClick={() => pick(f)}
-                  className={cx("relative flex shrink-0 items-center gap-2 px-3.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.18em] transition-colors", active ? "text-ink" : "text-ash hover:text-bone")}
+                  className={cx("relative flex shrink-0 items-center gap-2 px-3.5 py-2 font-mono text-[11.5px] uppercase tracking-[0.18em] transition-colors", active ? "text-ink" : "text-ash hover:text-bone")}
                 >
                   {active && <motion.span layoutId="filter-pill" className="absolute inset-0 bg-gradient-to-b from-[#ecebe7] to-[#bdbcb7]" transition={{ type: "spring", stiffness: 420, damping: 38 }} />}
                   <span className="relative">{f === "all" ? "All" : STYLE_LABEL[f]}</span>
@@ -195,7 +195,7 @@ function Plate({ t, n, onOpen }: { t: Tattoo; n: number; onOpen: () => void }) {
           <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] transition-shadow duration-500 group-hover:shadow-[inset_0_0_0_1px_rgba(214,214,219,0.45)]" />
           <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           {t.featured && (
-            <span className="absolute left-2.5 top-2.5 flex items-center gap-1.5 bg-ink/70 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-silver backdrop-blur">
+            <span className="absolute left-2.5 top-2.5 flex items-center gap-1.5 bg-ink/70 px-2 py-1 font-mono text-[10.5px] uppercase tracking-[0.2em] text-silver backdrop-blur">
               <Star size={7} /> Featured
             </span>
           )}
@@ -204,7 +204,7 @@ function Plate({ t, n, onOpen }: { t: Tattoo; n: number; onOpen: () => void }) {
           <span className="font-display text-[13px] italic text-ash tabular">{pad(n)}</span>
           <span className="min-w-0 flex-1">
             <span className="block truncate font-display text-[1.15rem] leading-tight text-bone sm:text-[1.3rem]">{t.title}</span>
-            <span className="mt-0.5 block truncate font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash">
+            <span className="mt-0.5 block truncate font-mono text-[11px] uppercase tracking-[0.16em] text-ash">
               {t.styles.slice(0, 2).map((s) => STYLE_LABEL[s]).join(" · ")}
             </span>
           </span>
@@ -249,10 +249,10 @@ function IndexList({ pieces, all, onOpen }: { pieces: Tattoo[]; all: Tattoo[]; o
               </span>
               <span className="min-w-0">
                 <span className="block display text-[1.6rem] text-bone transition-transform duration-500 group-hover:translate-x-2 lg:text-[2.3rem]">{t.title}</span>
-                <span className="mt-1 block font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash lg:hidden">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ")}</span>
+                <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.16em] text-ash lg:hidden">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ")}</span>
               </span>
-              <span className="hidden font-mono text-[10.5px] uppercase tracking-[0.16em] text-mist lg:block">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ")}</span>
-              <span className="hidden font-mono text-[10.5px] uppercase tracking-[0.16em] text-ash lg:block">{t.placement ?? "—"}</span>
+              <span className="hidden font-mono text-[11.5px] uppercase tracking-[0.16em] text-mist lg:block">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ")}</span>
+              <span className="hidden font-mono text-[11.5px] uppercase tracking-[0.16em] text-ash lg:block">{t.placement ?? "—"}</span>
               <Arrow className="text-ash transition-colors group-hover:text-bone" />
             </button>
           </li>

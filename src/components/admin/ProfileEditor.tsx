@@ -81,11 +81,11 @@ export function ProfileEditor({ profile }: { profile: AdminProfile }) {
         <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files?.[0]; if (f) pickPortrait(f); e.target.value = ""; }} />
         <div className="flex items-end gap-4">
           <div className="hatch relative aspect-[4/5] w-32 shrink-0 overflow-hidden border border-[var(--line)]">
-            {portraitSrc ? <img src={portraitSrc} alt="" className="size-full object-cover" /> : <span className="absolute inset-0 grid place-items-center font-mono text-[9px] uppercase tracking-[0.14em] text-ash">None</span>}
+            {portraitSrc ? <img src={portraitSrc} alt="" className="size-full object-cover" /> : <span className="absolute inset-0 grid place-items-center font-mono text-[10.5px] uppercase tracking-[0.14em] text-ash">None</span>}
           </div>
           <div className="flex flex-col gap-2">
             <Button type="button" onClick={() => fileRef.current?.click()} disabled={busy}>{portraitSrc ? "Replace" : "Upload"} portrait</Button>
-            {portraitSrc && <button type="button" onClick={() => { setPortrait(null); setRemovePortrait(true); setDirty(true); }} className="font-mono text-[10px] uppercase tracking-[0.16em] text-ash hover:text-full">Remove</button>}
+            {portraitSrc && <button type="button" onClick={() => { setPortrait(null); setRemovePortrait(true); setDirty(true); }} className="font-mono text-[11px] uppercase tracking-[0.16em] text-ash hover:text-full">Remove</button>}
           </div>
         </div>
       </Section>
@@ -113,7 +113,7 @@ export function ProfileEditor({ profile }: { profile: AdminProfile }) {
         <Field label="Not offered" hint="Comma separated" className="mt-4"><TextInput value={notOffered} onChange={(e) => d(setNotOffered)(e.target.value)} placeholder="Realism, Colour portraits" /></Field>
       </Section>
 
-      <Section title="Socials" action={<button type="button" onClick={() => d(setSocials)([...socials, { label: "", handle: "", href: "" }])} className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add</button>}>
+      <Section title="Socials" action={<button type="button" onClick={() => d(setSocials)([...socials, { label: "", handle: "", href: "" }])} className="font-mono text-[11px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add</button>}>
         <ul className="space-y-3">
           {socials.map((s, i) => (
             <li key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2 sm:grid-cols-[8rem_8rem_1fr_auto]">
@@ -126,7 +126,7 @@ export function ProfileEditor({ profile }: { profile: AdminProfile }) {
         </ul>
       </Section>
 
-      <Section title="FAQ — Before you book" action={<button type="button" onClick={() => d(setFaq)([...faq, { q: "", a: "" }])} className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add question</button>}>
+      <Section title="FAQ — Before you book" action={<button type="button" onClick={() => d(setFaq)([...faq, { q: "", a: "" }])} className="font-mono text-[11px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add question</button>}>
         <ol className="space-y-4">
           {faq.map((f, i) => (
             <li key={i} className="border border-[var(--line)] p-3">
@@ -134,12 +134,12 @@ export function ProfileEditor({ profile }: { profile: AdminProfile }) {
                 <span className="font-display text-[14px] italic text-ash">{i + 1}</span>
                 <TextInput value={f.q} placeholder="Question" onChange={(e) => d(setFaq)(faq.map((x, j) => (j === i ? { ...x, q: e.target.value } : x)))} />
                 <div className="flex shrink-0 flex-col">
-                  <button type="button" disabled={i === 0} onClick={() => { const n = [...faq]; [n[i - 1], n[i]] = [n[i], n[i - 1]]; d(setFaq)(n); }} className="px-2 text-[11px] text-ash hover:text-bone disabled:opacity-20" aria-label="Move up">▲</button>
-                  <button type="button" disabled={i === faq.length - 1} onClick={() => { const n = [...faq]; [n[i + 1], n[i]] = [n[i], n[i + 1]]; d(setFaq)(n); }} className="px-2 text-[11px] text-ash hover:text-bone disabled:opacity-20" aria-label="Move down">▼</button>
+                  <button type="button" disabled={i === 0} onClick={() => { const n = [...faq]; [n[i - 1], n[i]] = [n[i], n[i - 1]]; d(setFaq)(n); }} className="px-2 text-[12px] text-ash hover:text-bone disabled:opacity-20" aria-label="Move up">▲</button>
+                  <button type="button" disabled={i === faq.length - 1} onClick={() => { const n = [...faq]; [n[i + 1], n[i]] = [n[i], n[i + 1]]; d(setFaq)(n); }} className="px-2 text-[12px] text-ash hover:text-bone disabled:opacity-20" aria-label="Move down">▼</button>
                 </div>
               </div>
               <TextArea className="mt-2 min-h-20" value={f.a} placeholder="Answer" onChange={(e) => d(setFaq)(faq.map((x, j) => (j === i ? { ...x, a: e.target.value } : x)))} />
-              <button type="button" onClick={() => d(setFaq)(faq.filter((_, j) => j !== i))} className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash hover:text-full">Remove</button>
+              <button type="button" onClick={() => d(setFaq)(faq.filter((_, j) => j !== i))} className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ash hover:text-full">Remove</button>
             </li>
           ))}
         </ol>
@@ -148,7 +148,7 @@ export function ProfileEditor({ profile }: { profile: AdminProfile }) {
       {/* Sticky save */}
       <div className={cx("fixed inset-x-0 bottom-[calc(var(--tabbar-h)+env(safe-area-inset-bottom))] z-30 border-t border-[var(--line)] bg-ink/90 px-4 py-3 backdrop-blur-xl transition-transform duration-300 lg:bottom-0 lg:left-60", dirty || portrait ? "translate-y-0" : "translate-y-[150%]")}>
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-limited">Unsaved changes</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-limited">Unsaved changes</span>
           <Button variant="primary" onClick={save} disabled={busy} className="px-8"><Star size={9} /> {busy ? "Saving…" : "Save & publish"}</Button>
         </div>
       </div>

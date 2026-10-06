@@ -33,19 +33,19 @@ export function AdminShell({ email, newCount, demo, children }: { email: string;
             const on = active(pathname, n.href);
             const Icon = n.icon;
             return (
-              <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className={cx("relative flex items-center gap-3 px-3 py-3 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors", on ? "text-bone" : "text-ash hover:text-bone")}>
+              <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className={cx("relative flex items-center gap-3 px-3 py-3 font-mono text-[12px] uppercase tracking-[0.2em] transition-colors", on ? "text-bone" : "text-ash hover:text-bone")}>
                 {on && <motion.span layoutId="admin-nav" className="absolute inset-0 etched bg-white/[0.04]" />}
                 <span className="relative"><Icon /></span>
                 <span className="relative">{n.label}</span>
-                {n.href === "/admin/inquiries" && newCount > 0 && <span className="relative ml-auto bg-silver px-1.5 text-[10px] text-ink">{newCount}</span>}
+                {n.href === "/admin/inquiries" && newCount > 0 && <span className="relative ml-auto bg-silver px-1.5 text-[11px] text-ink">{newCount}</span>}
               </Link>
             );
           })}
         </nav>
         <div className="mt-auto space-y-2 px-6 pb-6">
-          <a href="/" target="_blank" rel="noreferrer" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-mist hover:text-bone">View live site ↗</a>
-          <p className="truncate font-mono text-[10px] text-ash">{email}</p>
-          <form action={signOut}><button className="font-mono text-[10px] uppercase tracking-[0.2em] text-ash hover:text-bone">Sign out</button></form>
+          <a href="/" target="_blank" rel="noreferrer" className="block font-mono text-[11px] uppercase tracking-[0.2em] text-mist hover:text-bone">View live site ↗</a>
+          <p className="truncate font-mono text-[11px] text-ash">{email}</p>
+          <form action={signOut}><button className="font-mono text-[11px] uppercase tracking-[0.2em] text-ash hover:text-bone">Sign out</button></form>
         </div>
       </aside>
 
@@ -56,15 +56,15 @@ export function AdminShell({ email, newCount, demo, children }: { email: string;
           <span className="eyebrow">Admin</span>
         </span>
         <span className="flex items-center gap-3">
-          <a href="/" target="_blank" rel="noreferrer" className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist">Site ↗</a>
-          <form action={signOut}><button className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash">Sign out</button></form>
+          <a href="/" target="_blank" rel="noreferrer" className="font-mono text-[11px] uppercase tracking-[0.18em] text-mist">Site ↗</a>
+          <form action={signOut}><button className="font-mono text-[11px] uppercase tracking-[0.18em] text-ash">Sign out</button></form>
         </span>
       </header>
 
       <main className="min-h-dvh px-4 pb-[calc(var(--tabbar-h)+env(safe-area-inset-bottom)+32px)] pt-[calc(env(safe-area-inset-top)+76px)] sm:px-6 lg:pb-16 lg:pl-[calc(15rem+3rem)] lg:pr-12 lg:pt-10">
         <div className="mx-auto max-w-5xl">
         {demo && (
-          <p className="mb-6 border border-dashed border-limited/50 px-4 py-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-limited">
+          <p className="mb-6 border border-dashed border-limited/50 px-4 py-3 font-mono text-[11.5px] uppercase tracking-[0.14em] text-limited">
             Demo mode — showing sample data. Connect Supabase to save changes.
           </p>
         )}
@@ -84,9 +84,9 @@ export function AdminShell({ email, newCount, demo, children }: { email: string;
                   {on && <motion.span layoutId="admin-tab" className="absolute inset-x-5 top-0 h-px bg-silver" />}
                   <span className="relative">
                     <Icon />
-                    {n.href === "/admin/inquiries" && newCount > 0 && <span className="absolute -right-2.5 -top-1.5 min-w-4 bg-silver px-1 text-center font-mono text-[9px] text-ink">{newCount}</span>}
+                    {n.href === "/admin/inquiries" && newCount > 0 && <span className="absolute -right-2.5 -top-1.5 min-w-4 bg-silver px-1 text-center font-mono text-[10.5px] text-ink">{newCount}</span>}
                   </span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.16em]">{n.label}</span>
+                  <span className="font-mono text-[10.5px] uppercase tracking-[0.16em]">{n.label}</span>
                 </Link>
               </li>
             );

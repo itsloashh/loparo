@@ -87,3 +87,17 @@ export function hasPlaceholders(s: Snapshot) {
 }
 
 export const placeLabel = (l?: Location) => (l ? `${l.city}, ${l.region}` : "");
+
+/**
+ * Where Loash is tattooing right now: the city of a stop that's running today,
+ * otherwise the home base. Drives the gold "Here now" pulse on the map.
+ */
+export function hereNow(s: Snapshot, today: string): { location: Location; stop: Stop | null } | null {
+  const active = s.stops.find((st) => isActive(st, today) && st.status !== "closed");
+  if (active) {
+    const l = locationById(s, active.locationId);
+    if (l) return { location: l, stop: active };
+  }
+  const home = s.locations.find((l) => l.isHome);
+  return home ? { location: home, stop: null } : null;
+}

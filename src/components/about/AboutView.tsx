@@ -41,7 +41,7 @@ export function AboutView() {
                 ["Home base", a.homeCity],
                 ["Booking", a.byAppointmentOnly ? "By appointment" : "Walk-ins welcome"],
                 ["Travel", travels ? "Guest spots" : "Home studio"],
-                ["Instagram", a.handle],
+                ["Archive", `${snapshot.tattoos.length} pieces`],
               ].map(([k, v]) => (
                 <div key={k} className="bg-ink p-4">
                   <dt className="eyebrow">{k}</dt>
@@ -68,7 +68,7 @@ export function AboutView() {
                 <li key={s}>
                   <AppLink href={withParams("/work", { style: s })} data-cursor="view" className="group flex items-center justify-between border-b border-[var(--line)] py-4">
                     <span className="display text-[1.8rem] text-bone transition-transform duration-500 group-hover:translate-x-2 sm:text-[2.2rem]">{STYLE_LABEL[s]}</span>
-                    <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ash">
+                    <span className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ash">
                       {counts.get(s) ?? 0} in archive <Arrow className="group-hover:text-bone" />
                     </span>
                   </AppLink>
@@ -76,7 +76,7 @@ export function AboutView() {
               ))}
             </ul>
             {a.notOffered.length > 0 && (
-              <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ash">
+              <p className="mt-4 font-mono text-[11.5px] uppercase tracking-[0.16em] text-ash">
                 Not offered: <span className="text-mist">{a.notOffered.join(", ")}</span>
               </p>
             )}

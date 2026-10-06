@@ -50,7 +50,7 @@ export function InquiriesManager({ inquiries, tattoos, stops, locations }: { inq
           const on = filter === f.id;
           return (
             <button key={f.id} role="radio" aria-checked={on} onClick={() => setFilter(f.id as typeof filter)}
-              className={cx("flex shrink-0 items-center gap-2 border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors", on ? "border-silver bg-silver text-ink" : "border-[var(--line)] text-ash hover:text-bone")}>
+              className={cx("flex shrink-0 items-center gap-2 border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors", on ? "border-silver bg-silver text-ink" : "border-[var(--line)] text-ash hover:text-bone")}>
               {f.label} <span className={on ? "text-ink/60" : "text-ash/60"}>{n}</span>
             </button>
           );
@@ -69,17 +69,17 @@ export function InquiriesManager({ inquiries, tattoos, stops, locations }: { inq
                       {i.status === "new" && <span className="size-1.5 shrink-0 rounded-full bg-silver" aria-label="New" />}
                       <span className="truncate font-display text-[1.3rem] text-bone">{i.name}</span>
                     </span>
-                    <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.12em] text-ash">
+                    <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-[0.12em] text-ash">
                       {TYPE_LABEL[i.type]} · {i.placement} · {SIZE_LABEL[i.size] ?? i.size}
                     </span>
                   </span>
                   <span className="shrink-0 text-right">
-                    <span className="block font-mono text-[9.5px] uppercase tracking-[0.14em]" style={{ color: p.tone }}>{p.label}</span>
-                    <span className="mt-1 block font-mono text-[9.5px] text-ash">{ago(i.createdAt)}</span>
+                    <span className="block font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: p.tone }}>{p.label}</span>
+                    <span className="mt-1 block font-mono text-[11px] text-ash">{ago(i.createdAt)}</span>
                   </span>
                 </span>
                 <span className="mt-2 line-clamp-2 block text-[13.5px] text-mist">{i.idea}</span>
-                <span className="mt-2 block font-mono text-[9.5px] uppercase tracking-[0.12em] text-ash">{where(i.scheduleId)}</span>
+                <span className="mt-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-ash">{where(i.scheduleId)}</span>
               </button>
             </li>
           );
@@ -148,7 +148,7 @@ function InquiryDetail({ inquiry: i, reference, where, onClose, onChange, onDele
       footer={i && (
         <div className="flex items-center gap-2">
           <ConfirmButton onConfirm={remove} busy={busy} />
-          <a href={`mailto:${i.email}?subject=${encodeURIComponent("Your tattoo request — LOASH")}`} className="sweep ml-auto flex h-11 flex-1 items-center justify-center border border-white/40 bg-gradient-to-b from-[#e9e8e4] to-[#b9b8b3] px-6 font-mono text-[11px] uppercase tracking-[0.2em] text-ink sm:flex-none">
+          <a href={`mailto:${i.email}?subject=${encodeURIComponent("Your tattoo request — LOASH")}`} className="sweep ml-auto flex h-11 flex-1 items-center justify-center border border-white/40 bg-gradient-to-b from-[#e9e8e4] to-[#b9b8b3] px-6 font-mono text-[12px] uppercase tracking-[0.2em] text-ink sm:flex-none">
             Reply by email
           </a>
         </div>
@@ -161,7 +161,7 @@ function InquiryDetail({ inquiry: i, reference, where, onClose, onChange, onDele
             <div className="flex flex-wrap gap-1.5">
               {PIPELINE.map((p) => (
                 <button key={p.id} onClick={() => setStatus(p.id)} aria-pressed={i.status === p.id}
-                  className={cx("border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors", i.status === p.id ? "border-silver bg-white/[0.08] text-bone" : "border-[var(--line)] text-ash hover:text-bone")}
+                  className={cx("border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors", i.status === p.id ? "border-silver bg-white/[0.08] text-bone" : "border-[var(--line)] text-ash hover:text-bone")}
                   style={i.status === p.id ? { color: p.tone, borderColor: p.tone } : undefined}>
                   {p.label}
                 </button>
@@ -179,7 +179,7 @@ function InquiryDetail({ inquiry: i, reference, where, onClose, onChange, onDele
               ["Dates", i.flexibleDates ? "Flexible" : i.preferredDates.map(formatMonDay).join(", ") || "—"],
             ].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[7rem_1fr] gap-3 py-2.5">
-                <dt className="pt-0.5 font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">{k}</dt>
+                <dt className="pt-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ash">{k}</dt>
                 <dd className="text-[14px] text-bone">{v}</dd>
               </div>
             ))}
@@ -197,7 +197,7 @@ function InquiryDetail({ inquiry: i, reference, where, onClose, onChange, onDele
                 {reference && (
                   <div className="relative">
                     <ArtImage image={reference.image} alt={reference.title} sizes="160px" className="aspect-square w-full" />
-                    <span className="absolute inset-x-0 bottom-0 truncate bg-ink/80 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-silver">Your piece · {reference.title}</span>
+                    <span className="absolute inset-x-0 bottom-0 truncate bg-ink/80 px-2 py-1 font-mono text-[10.5px] uppercase tracking-[0.12em] text-silver">Your piece · {reference.title}</span>
                   </div>
                 )}
                 {i.referenceUrls.map((u, n) => (
@@ -214,7 +214,7 @@ function InquiryDetail({ inquiry: i, reference, where, onClose, onChange, onDele
             <div className="space-y-1.5">
               {[i.email, i.phone, i.instagram].filter(Boolean).map((c) => (
                 <button key={c} onClick={() => copy(c!)} className="flex w-full items-center justify-between border border-[var(--line)] px-3.5 py-2.5 text-left text-[14px] text-bone hover:border-[var(--line-strong)]">
-                  <span className="truncate">{c}</span><span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">Copy</span>
+                  <span className="truncate">{c}</span><span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ash">Copy</span>
                 </button>
               ))}
             </div>

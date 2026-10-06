@@ -20,7 +20,7 @@ export function Star({ size = 10, className, style }: { size?: number; className
 /** Engraved divider: hairline · star · hairline */
 export function Divider({ className, label }: { className?: string; label?: string }) {
   return (
-    <div className={cx("flex items-center gap-3 text-ash/70", className)} role="separator">
+    <div className={cx("flex items-center gap-3 text-gold", className)} role="separator">
       <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--line-strong)] to-[var(--line-strong)]" />
       {label ? <span className="eyebrow">{label}</span> : <Star size={9} />}
       <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[var(--line-strong)] to-[var(--line-strong)]" />
@@ -30,7 +30,7 @@ export function Divider({ className, label }: { className?: string; label?: stri
 
 /** Corner ticks — the "engraved plate" frame used on key cards */
 export function Corners({ className }: { className?: string }) {
-  const c = "absolute size-2.5 border-silver/40";
+  const c = "absolute size-2.5 border-gold/50";
   return (
     <span aria-hidden className={cx("pointer-events-none absolute inset-0", className)}>
       <span className={cx(c, "left-0 top-0 border-l border-t")} />
@@ -49,7 +49,7 @@ export function StatusGlyph({ status, size = 9, pulse }: { status: AvailabilityS
   const shape =
     s.glyph === "dot" ? <circle cx="5" cy="5" r="4" fill="currentColor" />
     : s.glyph === "half" ? (<><circle cx="5" cy="5" r="3.6" fill="none" stroke="currentColor" strokeWidth="1.2" /><path d="M5 1.4 A3.6 3.6 0 0 1 5 8.6Z" fill="currentColor" /></>)
-    : s.glyph === "cross" ? <path d="M2 2 L8 8 M8 2 L2 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    : s.glyph === "cross" ? (<><circle cx="5" cy="5" r="3.6" fill="none" stroke="currentColor" strokeWidth="1.1" /><path d="M2.6 7.4 L7.4 2.6" stroke="currentColor" strokeWidth="1.1" /></>)
     : s.glyph === "dash" ? <path d="M1.5 5 H8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     : <path d="M5 0.8 L9.2 5 L5 9.2 L0.8 5Z" fill="none" stroke="currentColor" strokeWidth="1.2" />;
   return (
@@ -65,7 +65,7 @@ export function StatusGlyph({ status, size = 9, pulse }: { status: AvailabilityS
 export function StatusBadge({ status, short, className, pulse }: { status: AvailabilityStatus; short?: boolean; className?: string; pulse?: boolean }) {
   const s = STATUS[status];
   return (
-    <span className={cx("inline-flex items-center gap-2 whitespace-nowrap font-mono text-[10.5px] uppercase tracking-[0.18em]", className)} style={{ color: s.token }}>
+    <span className={cx("inline-flex items-center gap-2 whitespace-nowrap font-sans text-[13px] font-medium tracking-[0.01em]", className)} style={{ color: s.token }}>
       <StatusGlyph status={status} pulse={pulse} />
       {short ? s.short : s.label}
     </span>
@@ -76,7 +76,7 @@ export function SampleTag({ className, children = "Sample" }: { className?: stri
   return (
     <span
       title="Placeholder data — replace before launch"
-      className={cx("inline-flex items-center gap-1 border border-dashed border-limited/50 px-1.5 py-[1px] font-mono text-[9px] uppercase tracking-[0.18em] text-limited/90", className)}
+      className={cx("inline-flex items-center gap-1 border border-dashed border-ash/50 px-1.5 py-[1px] font-mono text-[10px] uppercase tracking-[0.16em] text-ash", className)}
     >
       {children}
     </span>
@@ -92,7 +92,7 @@ const btn: Record<BtnVariant, string> = {
   quiet: "text-mist hover:text-bone",
 };
 const base =
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap px-5 h-11 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 disabled:opacity-35 disabled:pointer-events-none select-none";
+  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap px-5 h-11 font-mono text-[12px] uppercase tracking-[0.2em] transition-colors duration-300 disabled:opacity-35 disabled:pointer-events-none select-none";
 
 /** Minimal class merge: caller's size/spacing utilities replace the base ones. */
 const GROUPS = [/^px-/, /^h-/, /^text-\[/, /^tracking-/];
@@ -157,5 +157,5 @@ export function ArtImage({
 }
 
 export function Kbd({ children }: { children: ReactNode }) {
-  return <kbd className="border border-[var(--line-strong)] px-1.5 py-0.5 font-mono text-[10px] text-ash">{children}</kbd>;
+  return <kbd className="border border-[var(--line-strong)] px-1.5 py-0.5 font-mono text-[11px] text-ash">{children}</kbd>;
 }

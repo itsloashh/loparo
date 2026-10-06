@@ -51,7 +51,7 @@ export function FollowForm({ preselect, className }: { preselect?: string[]; cla
           {snapshot.locations.map((l) => {
             const on = picked.includes(l.id);
             return (
-              <label key={l.id} className={cx("flex cursor-pointer items-center gap-2 border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] transition-colors", on ? "border-silver/70 bg-white/[0.06] text-bone" : "border-[var(--line)] text-ash hover:text-bone")}>
+              <label key={l.id} className={cx("flex cursor-pointer items-center gap-2 border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors", on ? "border-silver/70 bg-white/[0.06] text-bone" : "border-[var(--line)] text-ash hover:text-bone")}>
                 <input type="checkbox" className="sr-only" checked={on} onChange={() => toggle(l.id)} />
                 <span aria-hidden className={cx("grid size-3 place-items-center border", on ? "border-silver bg-silver" : "border-ash/60")}>
                   {on && <svg width="8" height="8" viewBox="0 0 8 8"><path d="M1 4 L3.2 6 L7 1.6" fill="none" stroke="#0a0a0b" strokeWidth="1.4" /></svg>}

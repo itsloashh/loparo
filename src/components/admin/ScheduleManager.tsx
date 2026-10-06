@@ -31,7 +31,7 @@ export function ScheduleManager({ locations, stops, days }: { locations: Locatio
             <span className="caps text-[14px] tracking-[0.2em] text-bone">{city_(s.locationId)?.city ?? "Unknown city"}</span>
             {s.isPlaceholder && <SampleTag />}
           </span>
-          <span className="mt-1 block font-mono text-[10.5px] uppercase tracking-[0.12em] text-ash">
+          <span className="mt-1 block font-mono text-[11.5px] uppercase tracking-[0.12em] text-ash">
             {formatRange(s.startDate, s.endDate)} · {KIND_LABEL[s.kind]}
             {s.status === "limited" && s.spotsRemaining != null ? ` · ${s.spotsRemaining} spots` : ""}
           </span>
@@ -54,7 +54,7 @@ export function ScheduleManager({ locations, stops, days }: { locations: Locatio
         {upcoming.length ? <ul>{upcoming.map((s) => <StopRow key={s.id} s={s} />)}</ul> : <p className="py-4 text-[14px] text-ash">No upcoming stops. Add one to light up the map.</p>}
         {past.length > 0 && (
           <>
-            <button onClick={() => setShowPast((v) => !v)} className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ash hover:text-bone">
+            <button onClick={() => setShowPast((v) => !v)} className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-ash hover:text-bone">
               {showPast ? "Hide" : "Show"} past stops ({past.length})
             </button>
             {showPast && <ul className="opacity-60">{past.map((s) => <StopRow key={s.id} s={s} />)}</ul>}
@@ -62,16 +62,16 @@ export function ScheduleManager({ locations, stops, days }: { locations: Locatio
         )}
       </Section>
 
-      <Section title={`Cities · ${locations.length}`} action={<button onClick={() => setCity("new")} className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add city</button>}>
+      <Section title={`Cities · ${locations.length}`} action={<button onClick={() => setCity("new")} className="font-mono text-[11px] uppercase tracking-[0.18em] text-mist hover:text-bone">+ Add city</button>}>
         <ul className="grid gap-2 sm:grid-cols-2">
           {locations.map((l) => (
             <li key={l.id}>
               <button onClick={() => setCity(l)} className="flex w-full items-center justify-between border border-[var(--line)] px-4 py-3 text-left hover:border-[var(--line-strong)]">
                 <span>
                   <span className="caps text-[13px] tracking-[0.2em] text-bone">{l.city}<span className="text-ash">, {l.region}</span></span>
-                  <span className="mt-0.5 block font-mono text-[9.5px] text-ash">{l.latitude.toFixed(2)}, {l.longitude.toFixed(2)}</span>
+                  <span className="mt-0.5 block font-mono text-[11px] text-ash">{l.latitude.toFixed(2)}, {l.longitude.toFixed(2)}</span>
                 </span>
-                {l.isHome && <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-silver">Home ★</span>}
+                {l.isHome && <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-silver">Home ★</span>}
               </button>
             </li>
           ))}
@@ -177,7 +177,7 @@ function StopEditor({ stop, locations, days, onClose, onDone }: { stop: Stop | "
             {STATUS_ORDER.map((st) => (
               <button key={st} type="button" onClick={() => setStatus(st)} aria-pressed={status === st} className={cx("flex items-center gap-2 border px-3 py-2.5 text-left transition-colors", status === st ? "border-silver/70 bg-white/[0.07]" : "border-[var(--line)] hover:border-[var(--line-strong)]")}>
                 <StatusGlyph status={st} />
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em]" style={{ color: STATUS[st].token }}>{STATUS[st].label}</span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em]" style={{ color: STATUS[st].token }}>{STATUS[st].label}</span>
               </button>
             ))}
           </div>
@@ -192,18 +192,18 @@ function StopEditor({ stop, locations, days, onClose, onDone }: { stop: Stop | "
           <div>
             <div className="mb-2 flex items-baseline justify-between">
               <span className="eyebrow">Each day</span>
-              <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-ash">Tap a day to change it</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ash">Tap a day to change it</span>
             </div>
             <div className="mb-3 flex flex-wrap gap-1">
-              <span className="self-center pr-1 font-mono text-[9.5px] uppercase tracking-[0.12em] text-ash">Set all:</span>
+              <span className="self-center pr-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ash">Set all:</span>
               {CYCLE.map((st) => (
-                <button key={st} type="button" onClick={() => setAll(st)} className="flex items-center gap-1.5 border border-[var(--line)] px-2 py-1.5 font-mono text-[9.5px] uppercase tracking-[0.12em] text-mist hover:border-[var(--line-strong)]">
+                <button key={st} type="button" onClick={() => setAll(st)} className="flex items-center gap-1.5 border border-[var(--line)] px-2 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-mist hover:border-[var(--line-strong)]">
                   <StatusGlyph status={st} size={7} /> {STATUS[st].short}
                 </button>
               ))}
             </div>
             <div className="grid grid-cols-7 gap-1">
-              {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => <span key={i} className="pb-1 text-center font-mono text-[9px] text-ash">{d}</span>)}
+              {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => <span key={i} className="pb-1 text-center font-mono text-[10.5px] text-ash">{d}</span>)}
               {weeks.flat().map((d, i) =>
                 d ? (
                   <button key={d} type="button" onClick={() => cycle(d)} aria-label={`${d}: ${STATUS[dayStatus(d)].label}`}
@@ -215,7 +215,7 @@ function StopEditor({ stop, locations, days, onClose, onDone }: { stop: Stop | "
                 ) : <span key={`x${i}`} />,
               )}
             </div>
-            <p className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.12em] text-ash">{formatMonth(range[0])}{range.length > 1 && formatMonth(range[range.length - 1]) !== formatMonth(range[0]) ? ` – ${formatMonth(range[range.length - 1])}` : ""} · {range.length} days · first {formatWeekday(range[0])}</p>
+            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ash">{formatMonth(range[0])}{range.length > 1 && formatMonth(range[range.length - 1]) !== formatMonth(range[0]) ? ` – ${formatMonth(range[range.length - 1])}` : ""} · {range.length} days · first {formatWeekday(range[0])}</p>
           </div>
         )}
 

@@ -163,4 +163,4 @@ insert into storage.buckets (id, name, public) values ('portfolio', 'portfolio',
   on conflict (id) do nothing;
 insert into storage.buckets (id, name, public) values ('inquiry-references', 'inquiry-references', false)
   on conflict (id) do nothing;
-create policy "public read portfolio" on storage.objects for select using (bucket_id = 'portfolio');
+-- Public bucket: files are served at /storage/v1/object/public/portfolio/… without a policy.

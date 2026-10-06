@@ -168,7 +168,7 @@ export function BookView() {
                 <span className={cx("block border transition-colors", d.size === s.id ? "border-silver bg-silver/10" : "border-ash/50")} style={{ width: s.px, height: s.px * 1.2 }} />
               </span>
               <span className="mt-3 font-display text-[1.35rem] leading-none text-bone">{s.label}</span>
-              <span className="mt-1.5 font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">{s.sub}</span>
+              <span className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ash">{s.sub}</span>
             </button>
           ))}
         </div>
@@ -189,7 +189,7 @@ export function BookView() {
                       <span className="caps text-[15px] tracking-[0.22em] text-bone">{l.city}<span className="text-ash">, {l.region}</span></span>
                       {s.isPlaceholder && <SampleTag />}
                     </span>
-                    <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-[0.14em] text-ash">{KIND_LABEL[s.kind]} · {formatRange(s.startDate, s.endDate)}</span>
+                    <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-ash">{KIND_LABEL[s.kind]} · {formatRange(s.startDate, s.endDate)}</span>
                   </span>
                   <StatusBadge status={s.status} short />
                 </button>
@@ -200,7 +200,7 @@ export function BookView() {
             <button type="button" onClick={() => { set("stopId", "flexible"); set("dates", []); }} aria-pressed={d.stopId === "flexible"}
               className={cx("w-full border border-dashed p-4 text-left transition-colors sm:p-5", d.stopId === "flexible" ? "border-silver/70 bg-white/[0.06]" : "border-[var(--line-strong)] hover:border-silver/50")}>
               <span className="caps text-[14px] tracking-[0.22em] text-bone">Flexible</span>
-              <span className="mt-1.5 block font-mono text-[10px] uppercase tracking-[0.14em] text-ash">Wherever I'll be next — or somewhere not listed</span>
+              <span className="mt-1.5 block font-mono text-[11px] uppercase tracking-[0.14em] text-ash">Wherever I'll be next — or somewhere not listed</span>
             </button>
           </li>
         </ul>
@@ -222,12 +222,12 @@ export function BookView() {
             />
             <ul className="mt-4 flex flex-wrap gap-1.5" aria-live="polite">
               {d.dates.map((x, i) => (
-                <li key={x} className="flex items-center gap-2 border border-silver/60 bg-white/[0.05] px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-bone">
+                <li key={x} className="flex items-center gap-2 border border-silver/60 bg-white/[0.05] px-3 py-1.5 font-mono text-[11.5px] uppercase tracking-[0.14em] text-bone">
                   <span className="text-ash">{ROMAN[i]}</span> {formatMonDay(x)}
                   <button type="button" onClick={() => set("dates", d.dates.filter((y) => y !== x))} aria-label={`Remove ${formatLong(x)}`} className="text-ash hover:text-bone">×</button>
                 </li>
               ))}
-              {!d.dates.length && <li className="font-mono text-[10px] uppercase tracking-[0.14em] text-ash">Tap open (●) or limited (◐) days above</li>}
+              {!d.dates.length && <li className="font-mono text-[11px] uppercase tracking-[0.14em] text-ash">Tap open (●) or limited (◐) days above</li>}
             </ul>
           </div>
         )}
@@ -298,7 +298,7 @@ export function BookView() {
       {/* Progress */}
       <nav aria-label="Request steps" className="mt-8">
         <div className="flex items-center justify-between lg:hidden">
-          <span className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-mist">Step {step + 1} / {STEPS.length} — {STEPS[step]}</span>
+          <span className="font-mono text-[11.5px] uppercase tracking-[0.18em] text-mist">Step {step + 1} / {STEPS.length} — {STEPS[step]}</span>
         </div>
         <div className="mt-2 h-px bg-[var(--line)] lg:hidden"><motion.div className="h-px bg-silver" animate={{ width: `${((step + 1) / STEPS.length) * 100}%` }} /></div>
         <ol className="hidden grid-cols-8 border-y border-[var(--line)] lg:grid">
@@ -310,8 +310,8 @@ export function BookView() {
                   className={cx("relative flex w-full flex-col gap-1 px-3 py-3 text-left transition-colors", i === step ? "text-bone" : reachable ? "text-ash hover:text-bone" : "text-ash/35")}>
                   {i === step && <motion.span layoutId="step-bar" className="absolute inset-x-0 -top-px h-px bg-silver" />}
                   <span className="font-display text-[13px] italic">{ROMAN[i]}</span>
-                  <span className="font-mono text-[9.5px] uppercase tracking-[0.16em]">{s}</span>
-                  {i < step && valid[i] && <Star size={6} className="absolute right-3 top-4 text-silver" />}
+                  <span className="font-mono text-[11px] uppercase tracking-[0.16em]">{s}</span>
+                  {i < step && valid[i] && <Star size={6} className="absolute right-3 top-4 text-gold" />}
                 </button>
               </li>
             );
@@ -353,7 +353,7 @@ export function BookView() {
                 <div>
                   <p className="eyebrow">Reference piece</p>
                   <p className="mt-1 font-display text-[1.2rem] leading-tight text-bone">{reference.title}</p>
-                  <p className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">{reference.styles.map((s) => STYLE_LABEL[s]).join(" / ")}</p>
+                  <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ash">{reference.styles.map((s) => STYLE_LABEL[s]).join(" / ")}</p>
                 </div>
               </div>
             )}
@@ -367,14 +367,14 @@ export function BookView() {
                 ["References", files.length ? `${files.length} file${files.length > 1 ? "s" : ""}` : null],
               ].map(([k, v]) => (
                 <div key={k} className="flex items-baseline justify-between gap-4 border-b border-dashed border-[var(--line)] pb-2">
-                  <dt className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash">{k}</dt>
+                  <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-ash">{k}</dt>
                   <dd className={cx("truncate text-right text-[13.5px]", v ? "text-bone" : "text-ash/40")}>{v ?? "—"}</dd>
                 </div>
               ))}
             </dl>
             {chosenStop && (
               <div className="mt-5 flex items-center gap-2">
-                <StatusGlyph status={chosenStop.status} /> <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-mist">{STATUS[chosenStop.status].label}</span>
+                <StatusGlyph status={chosenStop.status} /> <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-mist">{STATUS[chosenStop.status].label}</span>
               </div>
             )}
           </div>
@@ -411,7 +411,7 @@ function Choice({ selected, onClick, title, sub }: { selected: boolean; onClick:
 function Chip({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: ReactNode }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={selected}
-      className={cx("border px-3.5 py-2.5 font-mono text-[10.5px] uppercase tracking-[0.14em] transition-colors", selected ? "border-silver/80 bg-silver text-ink" : "border-[var(--line)] text-mist hover:border-[var(--line-strong)] hover:text-bone")}>
+      className={cx("border px-3.5 py-2.5 font-mono text-[11.5px] uppercase tracking-[0.14em] transition-colors", selected ? "border-silver/80 bg-silver text-ink" : "border-[var(--line)] text-mist hover:border-[var(--line-strong)] hover:text-bone")}>
       {children}
     </button>
   );
@@ -422,7 +422,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
     <label className="block">
       <span className="mb-2 flex items-baseline justify-between">
         <span className="eyebrow">{label}</span>
-        {hint && <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash/70">{hint}</span>}
+        {hint && <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ash/70">{hint}</span>}
       </span>
       {children}
     </label>
@@ -436,9 +436,9 @@ function Input({ value, onChange, ...p }: { value: string; onChange: (v: string)
 function Row({ label, value, onEdit, long }: { label: string; value?: string | null; onEdit: () => void; long?: boolean }) {
   return (
     <button type="button" onClick={onEdit} className="group grid w-full grid-cols-[7.5rem_1fr_auto] items-start gap-4 py-3.5 text-left">
-      <dt className="pt-0.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash">{label}</dt>
+      <dt className="pt-0.5 font-mono text-[11px] uppercase tracking-[0.16em] text-ash">{label}</dt>
       <dd className={cx("text-[14px] text-bone", long ? "line-clamp-3" : "truncate")}>{value || <span className="text-full">Missing</span>}</dd>
-      <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash group-hover:text-bone">Edit</span>
+      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ash group-hover:text-bone">Edit</span>
     </button>
   );
 }
@@ -451,10 +451,10 @@ function ReferenceCard({ t, onRemove, compact }: { t: Tattoo; onRemove?: () => v
       <div className="flex min-w-0 flex-1 flex-col justify-center">
         <p className="eyebrow">Reference piece</p>
         <p className="mt-1.5 font-display text-[1.5rem] leading-tight text-bone">{t.title}</p>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ash">Style · {t.styles.map((s) => STYLE_LABEL[s]).join(" / ")}</p>
+        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ash">Style · {t.styles.map((s) => STYLE_LABEL[s]).join(" / ")}</p>
         {!compact && <p className="mt-3 font-display text-[1.05rem] italic text-mist">Now tell me about your idea.</p>}
       </div>
-      {onRemove && <button type="button" onClick={onRemove} className="self-start p-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ash hover:text-bone" aria-label="Remove reference">×</button>}
+      {onRemove && <button type="button" onClick={onRemove} className="self-start p-1 font-mono text-[11px] uppercase tracking-[0.16em] text-ash hover:text-bone" aria-label="Remove reference">×</button>}
     </div>
   );
 }
@@ -475,9 +475,9 @@ function Dropzone({ files, setFiles }: { files: File[]; setFiles: (f: File[]) =>
         onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)}
         onDrop={(e) => { e.preventDefault(); setOver(false); add(e.dataTransfer.files); }}
         className={cx("hatch flex w-full flex-col items-center justify-center gap-3 border border-dashed px-6 py-12 text-center transition-colors", over ? "border-silver bg-white/[0.04]" : "border-[var(--line-strong)] hover:border-silver/50")}>
-        <Star size={14} className="text-silver" />
+        <Star size={14} className="text-gold" />
         <span className="font-display text-[1.4rem] text-bone">Drop images or tap to choose</span>
-        <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-ash">JPG · PNG · HEIC · up to 10 MB each</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ash">JPG · PNG · HEIC · up to 10 MB each</span>
       </button>
       <input ref={input} type="file" accept="image/*" multiple hidden onChange={(e) => add(e.target.files)} />
       {files.length > 0 && (
@@ -498,7 +498,7 @@ function Sent({ mode, name, onReset }: { mode: "live" | "demo"; name: string; on
   return (
     <section className="grid min-h-[80dvh] place-items-center px-6 py-20 text-center">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="max-w-lg">
-        <Star size={22} className="mx-auto text-silver" />
+        <Star size={22} className="mx-auto text-gold" />
         <h1 className="display mt-6 text-[3.4rem] sm:text-[4.4rem]"><span className="metal">Received.</span></h1>
         <p className="mt-4 font-display text-[1.35rem] leading-snug text-mist">Thanks{name ? `, ${name.split(" ")[0]}` : ""}. Your request is in — I'll review it and reply by email.</p>
         {mode === "demo" && <SampleTag className="mt-5">Preview — nothing was sent</SampleTag>}
@@ -506,7 +506,7 @@ function Sent({ mode, name, onReset }: { mode: "live" | "demo"; name: string; on
           {["Request", "Review", "Deposit", "Session"].map((s, i) => (
             <li key={s} className={cx("border-t pt-2", i === 0 ? "border-silver" : "border-[var(--line)]")}>
               <span className="font-display text-[12px] italic text-ash">{ROMAN[i]}</span>
-              <span className={cx("block font-mono text-[9.5px] uppercase tracking-[0.14em]", i === 0 ? "text-bone" : "text-ash")}>{s}</span>
+              <span className={cx("block font-mono text-[11px] uppercase tracking-[0.14em]", i === 0 ? "text-bone" : "text-ash")}>{s}</span>
             </li>
           ))}
         </ol>

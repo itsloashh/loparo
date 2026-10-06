@@ -44,16 +44,16 @@ function NowCard() {
     <AppLink
       href={withParams("/map", { loc: stop.locationId })}
       data-cursor="explore"
-      className="group relative block p-4 etched transition-colors hover:bg-white/[0.025]"
+      className="group relative block px-4 pb-4 pt-3.5 etched transition-colors hover:bg-white/[0.025]"
     >
       <Corners />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <span className="eyebrow">Next stop</span>
-        {stop.isPlaceholder && <SampleTag />}
+        {stop.isPlaceholder && <SampleTag className="!px-1 !text-[9px]" />}
       </div>
-      <div className="mt-2.5 display text-[1.65rem] leading-none text-bone">{loc?.city}</div>
-      <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-mist tabular">{formatRange(stop.startDate, stop.endDate)}</div>
-      <StatusBadge status={stop.status} className="mt-3" pulse />
+      <div className="mt-2 display text-[1.75rem] leading-none text-bone">{loc?.city}</div>
+      <div className="mt-1.5 text-[13px] text-mist tabular">{formatRange(stop.startDate, stop.endDate)}</div>
+      <StatusBadge status={stop.status} className="mt-2.5 !whitespace-normal !text-[12.5px]" pulse />
     </AppLink>
   );
 }
@@ -65,7 +65,7 @@ function Rail() {
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-[var(--rail-w)] flex-col border-r border-[var(--line)] bg-stone/80 backdrop-blur-xl lg:flex">
       <div className="px-6 pt-7">
-        <AppLink href="/" aria-label="LOASH — home" className={cx("block transition-opacity duration-700", home && "pointer-events-none opacity-0")} data-cursor="open" tabIndex={home ? -1 : undefined}>
+        <AppLink href="/" aria-label="LOASH — home" className="block">
           <Wordmark className="w-[9.5rem]" />
         </AppLink>
         <p className="eyebrow mt-3">Tattoo artist · {snapshot.artist.homeCity.split(",")[0]}</p>
@@ -88,12 +88,12 @@ function Rail() {
                   {active && (
                     <motion.span layoutId="rail-active" className="absolute inset-0 bg-white/[0.04] etched" transition={{ type: "spring", stiffness: 380, damping: 36 }} />
                   )}
-                  <span className="relative w-7 font-display text-[13px] italic text-ash/80">{n.numeral}</span>
+                  <span className={cx("relative w-7 font-display text-[14px] italic", active ? "text-gold-bright" : "text-gold/70")}>{n.numeral}</span>
                   <span className="relative">
-                    <span className="block caps text-[13px] tracking-[0.28em]">{n.label}</span>
-                    <span className="mt-0.5 block font-mono text-[9.5px] uppercase tracking-[0.18em] text-ash/70 group-hover:text-ash">{n.sub}</span>
+                    <span className="block caps text-[14px] tracking-[0.26em]">{n.label}</span>
+                    <span className="mt-0.5 block text-[12px] text-ash group-hover:text-mist">{n.sub}</span>
                   </span>
-                  {active && <Star size={7} className="relative ml-auto self-center text-silver" />}
+                  {active && <Star size={7} className="relative ml-auto self-center text-gold" />}
                 </AppLink>
               </li>
             );
@@ -107,11 +107,14 @@ function Rail() {
           Request a tattoo
         </ButtonLink>
         <div className="flex items-center justify-between pt-2">
-          {snapshot.artist.socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash hover:text-bone">
+          {snapshot.artist.socials.slice(0, 2).map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="font-mono text-[11px] uppercase tracking-[0.18em] text-ash hover:text-bone">
               {s.label}
             </a>
           ))}
+          <a href="/admin" className="ml-auto flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-ash hover:text-gold-bright">
+            <IconLock /> Admin
+          </a>
         </div>
       </div>
     </aside>
@@ -128,14 +131,19 @@ function TopBar() {
       <AppLink href="/" aria-label="LOASH — home" className={cx("transition-opacity duration-500", pathname === "/" && "pointer-events-none opacity-0")} tabIndex={pathname === "/" ? -1 : undefined}>
         <Wordmark className="w-[5.6rem]" />
       </AppLink>
-      {stop && loc && (
-        <AppLink href={withParams("/map", { loc: stop.locationId })} className="flex items-center gap-2 border border-[var(--line)] px-2.5 py-1.5">
-          <StatusGlyph status={stop.status} pulse />
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-mist">
-            {loc.city} · {formatRange(stop.startDate, stop.endDate)}
-          </span>
-        </AppLink>
-      )}
+      <div className="flex items-center gap-2">
+        {stop && loc && (
+          <AppLink href={withParams("/map", { loc: stop.locationId })} className="flex items-center gap-2 border border-[var(--line)] px-2.5 py-1.5">
+            <StatusGlyph status={stop.status} pulse />
+            <span className="text-[12.5px] text-mist">
+              {loc.city} · {formatRange(stop.startDate, stop.endDate)}
+            </span>
+          </AppLink>
+        )}
+        <a href="/admin" aria-label="Admin" className="grid size-9 place-items-center border border-[var(--line)] text-ash hover:text-gold-bright">
+          <IconLock />
+        </a>
+      </div>
     </header>
   );
 }
@@ -157,11 +165,11 @@ function TabBar() {
                 aria-current={active ? "page" : undefined}
                 className={cx("flex h-full flex-col items-center justify-center gap-1.5 transition-colors", active ? "text-bone" : "text-ash")}
               >
-                {active && <motion.span layoutId="tab-active" className="absolute inset-x-5 top-0 h-px bg-silver" />}
+                {active && <motion.span layoutId="tab-active" className="absolute inset-x-5 top-0 h-px bg-gold" />}
                 <span className={cx("grid place-items-center", book && "size-8 -my-1 rounded-full bg-gradient-to-b from-[#ecebe7] to-[#b5b4af] text-ink")}>
                   <Icon />
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em]">{n.label}</span>
+                <span className="font-mono text-[10.5px] font-medium uppercase tracking-[0.14em]">{n.label}</span>
               </AppLink>
             </li>
           );
@@ -209,4 +217,5 @@ function IconWork() { return <I><rect x="3.5" y="2.5" width="13" height="15" /><
 function IconMap() { return <I><circle cx="10" cy="10" r="7.5" /><path d="M10 3.5 L11.6 10 L10 16.5 L8.4 10Z" fill="currentColor" stroke="none" /></I>; }
 function IconCalendar() { return <I><rect x="2.5" y="4" width="15" height="13" /><path d="M2.5 8h15M6.5 2.2v3.4M13.5 2.2v3.4" /><circle cx="10" cy="12.5" r="1.1" fill="currentColor" stroke="none" /></I>; }
 function IconEye() { return <I><path d="M1.8 10 C5 4.6 15 4.6 18.2 10 C15 15.4 5 15.4 1.8 10Z" /><circle cx="10" cy="10" r="2.4" /></I>; }
+function IconLock() { return <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden><rect x="4" y="9" width="12" height="9" /><path d="M7 9V6.5a3 3 0 0 1 6 0V9" /></svg>; }
 function IconNeedle() { return <I><path d="M4 16 L13.5 6.5 M12 5 L15 8 M14.2 4.2 L15.8 5.8 M3 17 L5 15" strokeWidth="1.4" /></I>; }

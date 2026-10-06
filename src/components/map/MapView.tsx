@@ -4,9 +4,10 @@ import { AnimatePresence, motion } from "motion/react";
 import type { AvailabilityDay, Location, Stop } from "@/lib/types";
 import { KIND_LABEL, STATUS } from "@/lib/status";
 import { useData, useNav, withParams } from "@/lib/app-context";
-import { daysForStop, locationById, locationStatus, stopsForLocation, upcomingStops } from "@/lib/selectors";
-import { formatLong, formatMonDay, formatMonth, formatRange, formatWeekday, formatDayNum } from "@/lib/dates";
-import { Arrow, ButtonLink, Corners, SampleTag, Star, StatusBadge, StatusGlyph, cx } from "@/components/ui/primitives";
+import { daysForStop, hereNow, isActive, locationById, locationStatus, stopsForLocation, upcomingStops } from "@/lib/selectors";
+import { formatLong, formatMonDay, formatMonth, formatRange } from "@/lib/dates";
+import { StopLine, capacityLine } from "@/components/schedule/StopRow";
+import { Arrow, ButtonLink, Corners, SampleTag, Star, StatusBadge, cx } from "@/components/ui/primitives";
 import { DayStrip, Legend } from "@/components/schedule/DayStrip";
 import { Atlas, type AtlasMarker } from "./Atlas";
 import { FollowForm } from "./FollowForm";
@@ -32,11 +33,12 @@ export function MapView() {
     [snapshot, today],
   );
   const loc = selected ? locationById(snapshot, selected) : undefined;
+  const here = hereNow(snapshot, today);
 
   return (
     <section aria-labelledby="map-title" className="relative h-[calc(100dvh-var(--topbar-h)-var(--tabbar-h)-env(safe-area-inset-bottom))] lg:h-dvh">
       <h1 id="map-title" className="sr-only">Where I'll be — map</h1>
-      <Atlas markers={markers} selectedId={selected} onSelect={select} className="absolute inset-0" />
+      <Atlas markers={markers} selectedId={selected} onSelect={select} hereId={here?.location.id} className="absolute inset-0" />
 
       {/* Desktop panel */}
       <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[392px] p-6 lg:block">
@@ -57,7 +59,12 @@ export function MapView() {
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-6 right-6 hidden border border-[var(--line)] bg-ink/70 px-4 py-3 backdrop-blur lg:block">
+      <div className="absolute bottom-6 right-6 hidden items-center gap-5 border border-[var(--line)] bg-ink/80 px-4 py-3 backdrop-blur lg:flex">
+        {here && (
+          <span className="flex items-center gap-2 text-[12px] font-medium text-gold-bright">
+            <span className="here-glow size-2.5 rotate-45 bg-gold" /> Here now · {here.location.city}
+          </span>
+        )}
         <Legend />
       </div>
 
@@ -70,48 +77,34 @@ export function MapView() {
 function StopList({ onPick, dense }: { onPick: (id: string) => void; dense?: boolean }) {
   const { snapshot, today } = useData();
   const stops = upcomingStops(snapshot, today);
+  const here = hereNow(snapshot, today);
   let lastMonth = "";
   return (
-    <div className={cx(dense ? "px-4 pb-4" : "p-6")}>
+    <div className={cx(dense ? "px-4 pb-6" : "p-6")}>
       {!dense && (
         <>
           <p className="eyebrow flex items-center gap-2"><Star size={8} /> II — The map</p>
-          <h2 className="display mt-3 text-[2.6rem] text-bone">Where I'll be</h2>
-          <p className="mt-2 text-[13.5px] text-ash">Home base, guest spots and travel. Pick a city to see open days.</p>
+          <h2 className="display mt-3 text-[2.7rem] text-bone">Where I'll be</h2>
+          <p className="mt-2 font-display text-[1.15rem] italic leading-snug text-mist">Home studio, guest spots and the road. Choose a city to see its open days.</p>
         </>
       )}
-      <ol className={cx(!dense && "mt-6")}>
+      {here && (
+        <button onClick={() => onPick(here.location.id)} className={cx("flex w-full items-center gap-3 border border-gold/40 bg-gold/[0.06] px-4 py-3 text-left", !dense && "mt-5")}>
+          <span className="here-glow size-2.5 shrink-0 rotate-45 bg-gold" />
+          <span className="text-[13.5px] text-bone">
+            {here.stop ? "Tattooing now in " : "In the studio in "}<span className="font-display text-[1.15rem] text-gold-bright">{here.location.city}</span>
+          </span>
+        </button>
+      )}
+      <ol className="mt-2">
         {stops.map((st) => {
-          const l = locationById(snapshot, st.locationId)!;
-          const m = st.startDate ? formatMonth(st.startDate) : "Dates TBA";
+          const m = st.startDate ? formatMonth(st.startDate) : "Dates to be announced";
           const header = m !== lastMonth ? m : null;
           lastMonth = m;
           return (
             <li key={st.id}>
-              {header && <p className="eyebrow mb-1 mt-5 first:mt-0">{header}</p>}
-              <button
-                data-cursor="explore"
-                onClick={() => onPick(st.locationId)}
-                className="group flex w-full items-center gap-4 border-b border-[var(--line)] py-3.5 text-left"
-              >
-                <span className="w-11 shrink-0 text-center">
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-ash">{st.startDate ? formatWeekday(st.startDate) : "—"}</span>
-                  <span className="block font-display text-[1.6rem] leading-none text-bone tabular">{st.startDate ? formatDayNum(st.startDate) : "?"}</span>
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center gap-2">
-                    <span className="caps text-[13px] tracking-[0.2em] text-bone">{l.city}</span>
-                    {st.isPlaceholder && <SampleTag />}
-                  </span>
-                  <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-ash">
-                    {KIND_LABEL[st.kind]} · {formatRange(st.startDate, st.endDate)}
-                  </span>
-                </span>
-                <span className="flex flex-col items-end gap-1">
-                  <StatusGlyph status={st.status} pulse={st.status === "open"} />
-                  <span className="font-mono text-[9px] uppercase tracking-[0.14em]" style={{ color: STATUS[st.status].token }}>{STATUS[st.status].short}</span>
-                </span>
-              </button>
+              {header && <p className="mt-6 font-display text-[1.25rem] italic text-gold first:mt-4">{header}</p>}
+              <StopLine stop={st} onClick={() => onPick(st.locationId)} compact={dense} />
             </li>
           );
         })}
@@ -130,16 +123,17 @@ export function LocationDetail({ location, onBack }: { location: Location; onBac
   return (
     <div className="p-5 lg:p-6">
       {onBack && (
-        <button onClick={onBack} className="mb-5 hidden items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ash hover:text-bone lg:flex">
+        <button onClick={onBack} className="mb-5 hidden items-center gap-2 text-[13px] text-ash hover:text-gold-bright lg:flex">
           <Arrow dir="left" /> All stops
         </button>
       )}
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash tabular">
-        {Math.abs(location.latitude).toFixed(2)}°{location.latitude >= 0 ? "N" : "S"} · {Math.abs(location.longitude).toFixed(2)}°{location.longitude <= 0 ? "W" : "E"}
-        {location.isHome && <span className="ml-2 text-silver">· Home base</span>}
-      </p>
+      <p className="eyebrow">{location.isHome ? "Home base" : location.country === "US" ? "Across the border" : "On the road"}</p>
       <h2 className="display mt-2 text-[2.6rem] text-bone lg:text-[3rem]">{location.city}<span className="text-ash">, {location.region}</span></h2>
-      <StatusBadge status={status} className="mt-3" pulse />
+      {stops.some((s) => isActive(s, today)) ? (
+        <p className="here-glow mt-3 text-[13px] font-medium uppercase tracking-[0.16em] text-gold-bright">Here now</p>
+      ) : (
+        <StatusBadge status={status} className="mt-3" pulse />
+      )}
 
       <div className="mt-6 space-y-4">
         {stops.length === 0 && <p className="text-[14px] text-ash">No dates here yet. Follow the city to hear first.</p>}
@@ -147,17 +141,17 @@ export function LocationDetail({ location, onBack }: { location: Location; onBac
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-2">
-        <ButtonLink href={withParams("/schedule", { loc: location.id })} variant="ghost" className="px-2 text-[10px] tracking-[0.14em]">View schedule</ButtonLink>
+        <ButtonLink href={withParams("/schedule", { loc: location.id })} variant="ghost" className="px-2 text-[11px] tracking-[0.14em]">Schedule</ButtonLink>
         {anyBookable ? (
-          <ButtonLink href={withParams("/book", { stop: stops.find((s) => STATUS[s.status].bookable)!.id })} variant="primary" className="px-2 text-[10px] tracking-[0.14em]">Request here</ButtonLink>
+          <ButtonLink href={withParams("/book", { stop: stops.find((s) => STATUS[s.status].bookable)!.id })} variant="primary" className="px-2 text-[11px] tracking-[0.14em]">Request here</ButtonLink>
         ) : (
-          <button onClick={() => setShowFollow((v) => !v)} className="sweep h-11 border border-[var(--line-strong)] px-3 font-mono text-[11px] uppercase tracking-[0.2em] text-bone">
+          <button onClick={() => setShowFollow((v) => !v)} className="sweep h-11 border border-[var(--line-strong)] px-3 font-mono text-[12px] uppercase tracking-[0.2em] text-bone">
             Notify me
           </button>
         )}
       </div>
       {anyBookable && (
-        <button onClick={() => setShowFollow((v) => !v)} className="mt-3 w-full font-mono text-[10px] uppercase tracking-[0.2em] text-ash hover:text-bone" aria-expanded={showFollow}>
+        <button onClick={() => setShowFollow((v) => !v)} className="mt-3 w-full text-[13px] text-ash underline decoration-[var(--line-strong)] underline-offset-4 hover:text-gold-bright" aria-expanded={showFollow}>
           {showFollow ? "Hide" : "Follow this city"}
         </button>
       )}
@@ -176,22 +170,19 @@ function StopCard({ stop }: { stop: Stop }) {
   const { snapshot } = useData();
   const days = daysForStop(snapshot, stop.id);
   const [day, setDay] = useState<AvailabilityDay | null>(null);
-  const capacity =
-    stop.status === "limited" && stop.spotsRemaining != null ? `${stop.spotsRemaining} ${stop.spotsRemaining === 1 ? "spot" : "spots"} remaining`
-    : stop.status === "open" && stop.appointmentWindows != null ? `${stop.appointmentWindows} appointment windows`
-    : stop.note;
+  const capacity = capacityLine(stop);
   return (
-    <article className="border border-[var(--line)] bg-ink/40 p-4">
+    <article className="relative border border-[var(--line)] bg-ink/40 p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ash">{KIND_LABEL[stop.kind]}{stop.venue ? ` · ${stop.venue}` : ""}</p>
-          <p className="mt-1 font-display text-[1.6rem] leading-none text-bone">{formatRange(stop.startDate, stop.endDate)}</p>
+          <p className="font-display text-[1.75rem] leading-none text-bone">{formatRange(stop.startDate, stop.endDate)}</p>
+          <p className="mt-1.5 text-[13px] text-ash">{KIND_LABEL[stop.kind]}{stop.venue ? ` · ${stop.venue}` : ""}</p>
         </div>
         {stop.isPlaceholder && <SampleTag />}
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
         <StatusBadge status={stop.status} />
-        {capacity && <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-mist">{capacity}</span>}
+        {capacity && <span className="text-[13px] text-mist">{capacity}</span>}
       </div>
       {days.length > 0 && stop.status !== "closed" && (
         <div className="mt-4">
@@ -205,7 +196,7 @@ function StopCard({ stop }: { stop: Stop }) {
                     <StatusBadge status={day.status} className="mt-1" />
                   </div>
                   {STATUS[day.status].bookable && (
-                    <ButtonLink href={withParams("/book", { stop: stop.id, date: day.date })} variant="primary" className="h-9 px-3 text-[10px]">Request {formatMonDay(day.date)}</ButtonLink>
+                    <ButtonLink href={withParams("/book", { stop: stop.id, date: day.date })} variant="primary" className="h-9 px-3 text-[11px]">Request {formatMonDay(day.date)}</ButtonLink>
                   )}
                 </div>
               </motion.div>
@@ -224,7 +215,7 @@ function MobileSheet({ selected, onPick }: { selected?: Location; onPick: (id: s
     <motion.div
       className="absolute inset-x-0 bottom-0 z-20 flex flex-col border-t border-[var(--line-strong)] panel lg:hidden"
       initial={false}
-      animate={{ height: expanded ? "68%" : selected ? "68%" : 196 }}
+      animate={{ height: expanded || selected ? "70%" : 210 }}
       transition={{ type: "spring", stiffness: 300, damping: 34 }}
     >
       <button

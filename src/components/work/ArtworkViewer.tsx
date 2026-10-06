@@ -85,7 +85,7 @@ export function ArtworkViewer({
         <div className="pointer-events-none absolute inset-0 hatch opacity-60" />
         <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-4 lg:hidden">
           <Wordmark className="w-[4.6rem]" />
-          <button onClick={onClose} className="flex h-10 items-center gap-2 border border-[var(--line-strong)] bg-ink/60 px-3 font-mono text-[10px] uppercase tracking-[0.2em] backdrop-blur" aria-label="Close viewer">
+          <button onClick={onClose} className="flex h-10 items-center gap-2 border border-[var(--line-strong)] bg-ink/60 px-3 font-mono text-[11px] uppercase tracking-[0.2em] backdrop-blur" aria-label="Close viewer">
             Close <span aria-hidden className="text-base leading-none">×</span>
           </button>
         </div>
@@ -136,10 +136,10 @@ export function ArtworkViewer({
 
         {/* stage controls */}
         <div className="absolute inset-x-0 bottom-0 z-10 hidden items-end justify-between p-6 lg:flex">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ash">
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ash">
             <Kbd>←</Kbd> <Kbd>→</Kbd> browse · <Kbd>esc</Kbd> close · click to zoom
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ash">Original photograph · real work</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-ash">Original photograph · real work</span>
         </div>
       </div>
 
@@ -152,14 +152,14 @@ export function ArtworkViewer({
       >
         <div className="hidden items-center justify-between border-b border-[var(--line)] px-7 py-5 lg:flex">
           <Wordmark className="w-[5.2rem]" />
-          <button onClick={onClose} className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-mist hover:text-bone" aria-label="Close viewer">
+          <button onClick={onClose} className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-mist hover:text-bone" aria-label="Close viewer">
             Close <span aria-hidden className="grid size-8 place-items-center border border-[var(--line-strong)] text-base">×</span>
           </button>
         </div>
 
         <div className="flex-1 px-5 py-5 lg:px-7 lg:py-8">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] tracking-[0.2em] text-ash tabular">
+            <span className="font-mono text-[12px] tracking-[0.2em] text-ash tabular">
               <span className="text-bone">{pad(index + 1)}</span> / {pad(pieces.length)}
             </span>
             <div className="flex gap-1.5">
@@ -194,7 +194,7 @@ export function ArtworkViewer({
           <ButtonLink href={withParams("/book", { ref: piece.slug })} variant="primary" className="w-full">
             <Star size={9} /> Request something like this
           </ButtonLink>
-          <button onClick={share} className="w-full py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ash hover:text-bone">
+          <button onClick={share} className="w-full py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-ash hover:text-bone">
             Share this piece
           </button>
         </div>

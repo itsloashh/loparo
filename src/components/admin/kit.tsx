@@ -29,7 +29,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               exit={{ opacity: 0, y: 6 }}
               role={t.tone === "error" ? "alert" : "status"}
               className={cx(
-                "pointer-events-auto max-w-md border px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] shadow-2xl shadow-black/60 backdrop-blur",
+                "pointer-events-auto max-w-md border px-4 py-3 font-mono text-[12px] uppercase tracking-[0.14em] shadow-2xl shadow-black/60 backdrop-blur",
                 t.tone === "error" ? "border-full/60 bg-[#2a1614]/95 text-[#f1c7c0]" : "border-silver/40 bg-graphite/95 text-bone",
               )}
             >
@@ -48,7 +48,7 @@ export function Field({ label, hint, children, className }: { label: string; hin
     <label className={cx("block", className)}>
       <span className="mb-1.5 flex items-baseline justify-between gap-3">
         <span className="eyebrow">{label}</span>
-        {hint && <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-ash/70">{hint}</span>}
+        {hint && <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ash/70">{hint}</span>}
       </span>
       {children}
     </label>
@@ -98,7 +98,7 @@ export function ChipGroup<T extends string>({ options, value, onChange, multi = 
             type="button"
             aria-pressed={on}
             onClick={() => onChange(multi ? (on ? value.filter((v) => v !== o.value) : [...value, o.value]) : [o.value])}
-            className={cx("border px-3 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] transition-colors", on ? "border-silver bg-silver text-ink" : "border-[var(--line)] text-mist hover:border-[var(--line-strong)]")}
+            className={cx("border px-3 py-2 font-mono text-[11.5px] uppercase tracking-[0.14em] transition-colors", on ? "border-silver bg-silver text-ink" : "border-[var(--line)] text-mist hover:border-[var(--line-strong)]")}
           >
             {o.label}
           </button>
@@ -156,7 +156,7 @@ export function ConfirmButton({ onConfirm, children = "Delete", busy }: { onConf
       type="button"
       disabled={busy}
       onClick={() => (armed ? onConfirm() : setArmed(true))}
-      className={cx("h-11 border px-4 font-mono text-[10.5px] uppercase tracking-[0.16em] transition-colors disabled:opacity-40", armed ? "border-full bg-full/15 text-full" : "border-[var(--line)] text-ash hover:border-full/50 hover:text-full")}
+      className={cx("h-11 border px-4 font-mono text-[11.5px] uppercase tracking-[0.16em] transition-colors disabled:opacity-40", armed ? "border-full bg-full/15 text-full" : "border-[var(--line)] text-ash hover:border-full/50 hover:text-full")}
     >
       {armed ? "Tap again to confirm" : children}
     </button>

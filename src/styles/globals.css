@@ -12,21 +12,25 @@
   --color-slate: #151518;
   --color-graphite: #1c1c20;
   --color-iron: #2a2a2f;
-  --color-ash: #9b968e;
-  --color-mist: #c5c2bc;
-  --color-silver: #d6d6db;
-  --color-bone: #ece7de;
+  --color-ash: #b6b0a6;
+  --color-mist: #e3dfd8;
+  --color-silver: #d9d9de;
+  --color-bone: #f4f0e9;
+  --color-gold: #c9a96a;
+  --color-gold-bright: #e6cd96;
+  --color-gold-deep: #8e7442;
   --color-paper: #e4ddd0;
 
   --color-open: #8fc29a;
-  --color-limited: #dcbe73;
+  --color-limited: #e3a05e;
   --color-full: #d47d70;
   --color-closed: #7d7c81;
   --color-soon: #aabcd6;
 
   --font-display: "Cormorant Garamond", "Cormorant", Georgia, serif;
   --font-sans: "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  /* Label face: a humanist sans (was a monospace — read as "terminal"). Class name kept as font-mono. */
+  --font-mono: "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
 
   --ease-ink: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-slow: cubic-bezier(0.65, 0, 0.35, 1);
@@ -68,22 +72,30 @@ body {
   line-height: 1.55;
 }
 
-::selection { background: rgb(214 214 219 / 0.25); color: #fff; }
+::selection { background: rgb(201 169 106 / 0.35); color: #fff; }
 
 /* Focus — an etched silver ring, always visible for keyboard users */
 :focus-visible {
-  outline: 1px solid var(--color-silver);
+  outline: 1px solid var(--color-gold);
   outline-offset: 3px;
 }
 
 /* ── Type ─────────────────────────────────────────────────── */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.22em;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-ash);
+  color: var(--color-gold);
   line-height: 1.3;
+}
+.font-mono { font-weight: 450; }
+/* Gold leaf: used for ornaments, numerals and active states */
+.gold { color: var(--color-gold); }
+.gilt {
+  background: linear-gradient(176deg, #f3e2b8 0%, #d2b376 45%, #9b7d45 60%, #e3c88f 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .display {
   font-family: var(--font-display);
@@ -171,3 +183,9 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* "Here now" marker pulse */
+@keyframes herePulse { 0% { transform: translate(-50%,-50%) scale(.6); opacity: .9 } 100% { transform: translate(-50%,-50%) scale(2.6); opacity: 0 } }
+@keyframes hereGlow { 0%,100% { opacity: 1 } 50% { opacity: .45 } }
+.here-ring { animation: herePulse 1.8s cubic-bezier(.22,1,.36,1) infinite; }
+.here-glow { animation: hereGlow 1.8s ease-in-out infinite; }

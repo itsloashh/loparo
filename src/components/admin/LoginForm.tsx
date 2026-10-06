@@ -19,7 +19,7 @@ export function LoginForm({ configured }: { configured: boolean }) {
               <Field label="Email"><TextInput name="email" type="email" autoComplete="email" required /></Field>
               <Field label="Password"><TextInput name="password" type="password" autoComplete="current-password" required /></Field>
               {state?.error && <p role="alert" className="text-[13px] text-full">{state.error}</p>}
-              <button disabled={pending} className="sweep flex h-12 w-full items-center justify-center gap-2 border border-white/40 bg-gradient-to-b from-[#e9e8e4] to-[#b9b8b3] font-mono text-[11px] uppercase tracking-[0.2em] text-ink disabled:opacity-50">
+              <button disabled={pending} className="sweep flex h-12 w-full items-center justify-center gap-2 border border-white/40 bg-gradient-to-b from-[#e9e8e4] to-[#b9b8b3] font-mono text-[12px] uppercase tracking-[0.2em] text-ink disabled:opacity-50">
                 {pending ? "Signing in…" : <>Sign in <Star size={8} /></>}
               </button>
             </form>
@@ -35,7 +35,7 @@ export function LoginForm({ configured }: { configured: boolean }) {
             </div>
           )}
         </div>
-        <a href="/" className="mt-6 block text-center font-mono text-[10px] uppercase tracking-[0.2em] text-ash hover:text-bone">← Back to site</a>
+        <a href="/" className="mt-6 block text-center font-mono text-[11px] uppercase tracking-[0.2em] text-ash hover:text-bone">← Back to site</a>
       </div>
     </main>
   );

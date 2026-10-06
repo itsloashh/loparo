@@ -66,9 +66,9 @@ export function WorkManager({ initial }: { initial: AdminTattoo[] }) {
                 <span className="min-w-0">
                   <span className="flex items-center gap-2">
                     <span className="truncate font-display text-[1.25rem] text-bone">{t.title}</span>
-                    {!t.published && <span className="shrink-0 border border-ash/50 px-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-ash">Hidden</span>}
+                    {!t.published && <span className="shrink-0 border border-ash/50 px-1.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ash">Hidden</span>}
                   </span>
-                  <span className="mt-0.5 block truncate font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ") || "No style set"}</span>
+                  <span className="mt-0.5 block truncate font-mono text-[11px] uppercase tracking-[0.14em] text-ash">{t.styles.map((s) => STYLE_LABEL[s]).join(" · ") || "No style set"}</span>
                 </span>
               </button>
               <button onClick={() => flag(t, { featured: !t.featured })} aria-pressed={t.featured} aria-label={t.featured ? "Unfeature" : "Feature on home"} className={cx("grid size-10 shrink-0 place-items-center border transition-colors", t.featured ? "border-silver/60 text-silver" : "border-[var(--line)] text-ash/50 hover:text-bone")}>
@@ -81,7 +81,7 @@ export function WorkManager({ initial }: { initial: AdminTattoo[] }) {
           ))}
         </AnimatePresence>
       </ol>
-      <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ash">★ = rotates in the home page hero · ▲▼ = order on the site</p>
+      <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-ash">★ = rotates in the home page hero · ▲▼ = order on the site</p>
 
       <PieceEditor
         piece={editing}
@@ -179,13 +179,13 @@ function PieceEditor({ piece, onClose, onSaved }: { piece: AdminTattoo | "new" |
           {previewSrc ? (
             <div className="relative mx-auto w-full max-w-xs overflow-hidden border border-[var(--line)] bg-ink" style={{ aspectRatio: aspect }}>
               <img src={previewSrc} alt="" className={cx("size-full object-cover transition-opacity", busy === "processing" && "opacity-40")} />
-              {busy === "processing" && <span className="absolute inset-0 grid place-items-center font-mono text-[10px] uppercase tracking-[0.2em] text-bone">Preparing…</span>}
+              {busy === "processing" && <span className="absolute inset-0 grid place-items-center font-mono text-[11px] uppercase tracking-[0.2em] text-bone">Preparing…</span>}
             </div>
           ) : (
             <button type="button" onClick={() => fileRef.current?.click()} className="hatch flex aspect-[4/5] w-full max-w-xs flex-col items-center justify-center gap-3 border border-dashed border-[var(--line-strong)] text-center hover:border-silver/50 mx-auto">
-              <Star size={14} className="text-silver" />
+              <Star size={14} className="text-gold" />
               <span className="font-display text-[1.3rem] text-bone">Choose a photo</span>
-              <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-ash">From your camera roll</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ash">From your camera roll</span>
             </button>
           )}
           {previewSrc && (
